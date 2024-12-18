@@ -16,12 +16,18 @@ function RegistrationForm() {
     country: "",
     password: "",
     confirmPassword: "",
-    admin: false,
+    admin: true,
     age: "",
   });
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value, type } = e.target;
+  
+    if (name === "admin-user") {
+      setFormData({ ...formData, admin: value === "true" });
+    } else {
+      setFormData({ ...formData, [name]: type === "checkbox" ? e.target.checked : value });
+    }
   };
 
   const validatePassword = (password) => {
@@ -105,6 +111,7 @@ function RegistrationForm() {
           onChange={handleChange}
           required
         />
+
         <input
           type="text"
           name="username"
@@ -156,8 +163,8 @@ function RegistrationForm() {
             <input
               className="radio"
               type="radio"
-              name="admin"
-              value="admin"
+              name="admin-user"
+              value="true"
               checked={formData.admin === true}
               onChange={handleChange}
             />
@@ -167,8 +174,8 @@ function RegistrationForm() {
             <input
               className="radio"
               type="radio"
-              name="admin"
-              value="user"
+              name="admin-user"
+              value="false"
               checked={formData.admin === false}
               onChange={handleChange}
             />
