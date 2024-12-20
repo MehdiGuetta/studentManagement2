@@ -4,10 +4,10 @@ const NavigationBar = () => {
   const links = [
     { path: "/dashboard/home", label: "Home" },
     { path: "/dashboard/profile", label: "My Profile" },
-    { path: "/edit-color", label: "Edit Color" },
-    { path: "/users-list", label: "Users List" },
-    { path: "/add-user", label: "Add User" },
-    { path: "/request", label: "Requests" },
+    { path: "/dashboard/edit-color", label: "Edit Color" },
+    { path: "/dashboard/users-list", label: "Users List" },
+    { path: "/dashboard/add-user", label: "Add User" },
+    { path: "/dashboard/request", label: "Requests" },
   ];
 
   return (

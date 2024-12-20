@@ -8,6 +8,7 @@ import UserProfile from "./Layout/NavItems/UserProfile";
 import EditColor from "./Layout/NavItems/EditColor";
 import UserList from "./Layout/NavItems/UserList";
 import AddUser from "./Layout/NavItems/AddUser";
+import Requests from "./Layout/NavItems/Requests";
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
           <Route path="edit-color" element={<EditColor />} />
           <Route path="user-list" element={<UserList />} />
           <Route path="add-user" element={<AddUser />} />
+          <Route path="requests" element={<Requests />} />
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
