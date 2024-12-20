@@ -1,3 +1,3 @@
-export default function Requestes() {
-  return <div></div>;
+export default function Requests() {
+  return <div>Requests</div>;
 }

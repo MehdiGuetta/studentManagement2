@@ -1,5 +1,5 @@
 const EditColor = () => {
-  return <div></div>;
+  return <div>Edit color</div>;
 };
 
 export default EditColor;

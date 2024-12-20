@@ -1,3 +1,3 @@
 export default function UserList() {
-  return <div></div>;
+  return <div>User list</div>;
 }
