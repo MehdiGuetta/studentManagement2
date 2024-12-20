@@ -5,6 +5,9 @@ import Dashboard from "./Pages/Dashboard";
 import NotFound from "./NotFound";
 import HomePage from "./Layout/NavItems/Home";
 import UserProfile from "./Layout/NavItems/UserProfile";
+import EditColor from "./Layout/NavItems/EditColor";
+import UserList from "./Layout/NavItems/UserList";
+import AddUser from "./Layout/NavItems/AddUser";
 
 const App = () => {
   return (
@@ -16,6 +19,9 @@ const App = () => {
           <Route index element={<HomePage />} />
           <Route path="home" element={<HomePage />} />
           <Route path="profile" element={<UserProfile />} />
+          <Route path="edit-color" element={<EditColor />} />
+          <Route path="user-list" element={<UserList />} />
+          <Route path="add-user" element={<AddUser />} />
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
