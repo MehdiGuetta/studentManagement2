@@ -1,3 +1,4 @@
+// reducer.jsx
 const initialState = {
   user: null,
 };
@@ -9,12 +10,12 @@ const userReducer = (state = initialState, action) => {
         user: action.payload,
       };
     case "LOGOUT":
-      return initialState; 
+      return initialState;
     case "UPDATE_COLOR":
       return {
         ...state,
-        user:{...state.user, couleur: action.payload}
-      }
+        user: { ...state.user, couleur: action.payload },
+      };
     default:
       return state;
   }
