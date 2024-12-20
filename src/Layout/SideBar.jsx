@@ -1,8 +1,10 @@
 import { NavLink } from "react-router-dom";
+import useDynamicTextColor from "../Components/useDynamicTextColor";
 
 const SideBar = () => {
+  const { backgroundColor, textColor } = useDynamicTextColor();
   return (
-    <aside className="h-auto w-[16%] bg-gray-300">
+    <aside className="h-auto w-[16%]" style={{ color: textColor, backgroundColor: backgroundColor}}>
       <ul className="h-auto py-12 px-24 flex flex-col gap-10 text-xl font-semibold">
         {[
           { path: "/dashboard/home", label: "Home" },
@@ -16,7 +18,7 @@ const SideBar = () => {
             <NavLink
               to={path}
               className={({ isActive }) =>
-                `text-black text-lg font-semibold no-underline whitespace-nowrap cursor-pointer transition-colors duration-100 ease-in select-none ${
+                ` text-lg font-semibold no-underline whitespace-nowrap cursor-pointer transition-colors duration-100 ease-in select-none ${
                   isActive
                     ? "border-black text-black"
                     : "border-transparent hover:border-black hover:text-black hover:underline"
@@ -27,6 +29,7 @@ const SideBar = () => {
                 borderBottom: isActive
                   ? "2px solid #000"
                   : "2px solid transparent",
+                  color:textColor
               })}
             >
               {label}

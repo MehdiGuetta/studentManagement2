@@ -1,6 +1,8 @@
 import { NavLink, Outlet } from "react-router-dom";
+import useDynamicTextColor from "../Components/useDynamicTextColor";
 
 const NavigationBar = () => {
+  const { backgroundColor, textColor } = useDynamicTextColor();
   const links = [
     { path: "/dashboard/home", label: "Home" },
     { path: "/dashboard/profile", label: "My Profile" },
@@ -11,14 +13,14 @@ const NavigationBar = () => {
   ];
 
   return (
-    <nav className="w-full h-20 bg-gray-300">
+    <nav className="w-full h-20" style={{ color: textColor, backgroundColor: backgroundColor}}>
       <ul className="h-full flex justify-center items-center gap-10">
         {links.map(({ path, label }) => (
           <li key={path} className="list-none">
             <NavLink
               to={path}
               className={({ isActive }) =>
-                `text-black text-lg font-bold no-underline whitespace-nowrap cursor-pointer transition-colors duration-100 ease-in select-none ${
+                ` text-lg font-bold no-underline whitespace-nowrap cursor-pointer transition-colors duration-100 ease-in select-none ${
                   isActive
                     ? "border-black text-black underline"
                     : "border-transparent hover:border-black hover:text-black hover:underline"
@@ -29,6 +31,7 @@ const NavigationBar = () => {
                 borderBottom: isActive
                   ? "2px solid #000"
                   : "2px solid transparent",
+                color: textColor,
               })}
             >
               {label}
