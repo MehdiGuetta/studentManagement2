@@ -10,8 +10,6 @@ const Dashboard = () => {
   const user = useSelector((state) => state.user);
   const navigate = useNavigate();
 
-  console.log(user)
-
   if (!user) {
     return (
       <div className="login-back">

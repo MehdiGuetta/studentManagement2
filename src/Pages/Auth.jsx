@@ -32,7 +32,6 @@ const Auth = () => {
       } else {
         setError("Invalid username or password");
         setCounter((prev) => prev + 1);
-        console.log(counter);
       }
     } catch (err) {
       console.error("Error fetching data:", err);
