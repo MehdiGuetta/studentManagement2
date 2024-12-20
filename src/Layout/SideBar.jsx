@@ -5,12 +5,12 @@ const SideBar = () => {
     <aside className="h-auto w-[16%] bg-gray-300">
       <ul className="h-auto py-12 px-24 flex flex-col gap-10 text-xl font-semibold">
         {[
-          { path: "/home", label: "Home" },
-          { path: "/profile", label: "My Profile" },
-          { path: "/edit-color", label: "Edit Color" },
-          { path: "/users-list", label: "Users List" },
-          { path: "/add-user", label: "Add User" },
-          { path: "/request", label: "Requests" },
+          { path: "/dashboard/home", label: "Home" },
+          { path: "/dashboard/profile", label: "My Profile" },
+          { path: "/dashboard/edit-color", label: "Edit Color" },
+          { path: "/dashboard/users-list", label: "Users List" },
+          { path: "/dashboard/add-user", label: "Add User" },
+          { path: "/dashboard/requests", label: "Requests" },
         ].map(({ path, label }) => (
           <li key={path} className="list-none">
             <NavLink
@@ -24,7 +24,9 @@ const SideBar = () => {
               }
               style={({ isActive }) => ({
                 transform: "perspective(1px) translateZ(0)",
-                borderBottom: isActive ? "2px solid #000" : "2px solid transparent",
+                borderBottom: isActive
+                  ? "2px solid #000"
+                  : "2px solid transparent",
               })}
             >
               {label}
