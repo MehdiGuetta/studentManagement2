@@ -7,7 +7,7 @@ const NavigationBar = () => {
     { path: "/dashboard/edit-color", label: "Edit Color" },
     { path: "/dashboard/users-list", label: "Users List" },
     { path: "/dashboard/add-user", label: "Add User" },
-    { path: "/dashboard/request", label: "Requests" },
+    { path: "/dashboard/requests", label: "Requests" },
   ];
 
   return (

@@ -21,7 +21,7 @@ const App = () => {
           <Route path="home" element={<HomePage />} />
           <Route path="profile" element={<UserProfile />} />
           <Route path="edit-color" element={<EditColor />} />
-          <Route path="user-list" element={<UserList />} />
+          <Route path="users-list" element={<UserList />} />
           <Route path="add-user" element={<AddUser />} />
           <Route path="requests" element={<Requests />} />
         </Route>
