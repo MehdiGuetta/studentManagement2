@@ -15,7 +15,7 @@ const CountrySelector = ({ value, onChange }) => {
 
   return (
     <select
-      className={`country-select`}
+      className="w-96 py-3 px-4 border-none outline-none bg-[#eee] text-black rounded-md"
       value={value}
       onChange={onChange}
       required

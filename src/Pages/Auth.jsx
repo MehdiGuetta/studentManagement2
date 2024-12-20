@@ -1,5 +1,4 @@
 // Auth.jsx
-import "../assets/styles/auth.css";
 import { useDispatch } from "react-redux";
 import { login } from "../Redux/actions";
 import axios from "axios";
@@ -42,10 +41,16 @@ const Auth = () => {
   };
 
   return (
-    <div className="container">
-      <form className="login-form" onSubmit={handleLogin}>
-        <h2>Let{"'"}s get you signed in!</h2>
+    <div className="min-w-[400px] h-auto bg-white rounded-md shadow-xl shadow-black-300 p-5 absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] flex">
+      <form
+        onSubmit={handleLogin}
+        className="flex justify-center items-center flex-col gap-4 w-[400px] h-auto p-5"
+      >
+        <h2 className="text-center mb-5 text-2xl font-bold">
+          Let{"'"}s get you signed in!
+        </h2>
         <input
+          className="w-96 py-3 px-4 border-none outline-blue-500 bg-[#eee] text-black rounded-md"
           type="text"
           placeholder="Username"
           value={username}
@@ -53,6 +58,7 @@ const Auth = () => {
           required
         />
         <input
+          className="w-96 py-3 px-4 border-none outline-blue-500 bg-[#eee] text-black rounded-md"
           type="password"
           placeholder="Password"
           value={password}
@@ -60,18 +66,32 @@ const Auth = () => {
           required
         />
         {counter <= 2 ? (
-          <button type="submit">Authenticate</button>
+          <button
+            className="w-96 py-3 px-4 border-none bg-blue-600 text-white rounded-md hover:opacity-85 transition duration-200"
+            type="submit"
+          >
+            Authenticate
+          </button>
         ) : (
-          <button disabled className="deactivated-btn" type="submit">
+          <button
+            disabled
+            type="submit"
+            className="bg-gray-500 w-96 py-3 px-4 border-none text-white rounded-md cursor-not-allowed"
+          >
             Authenticate
           </button>
         )}
-        {<p className="error-message">{error}</p>}
-        <p>
+        {<p className="text-red-500">{error}</p>}
+        <p className="text-[14px]">
           Not registered?
           <span>
             {" "}
-            <a onClick={() => navigate("register")}>Create an Account</a>
+            <a
+              onClick={() => navigate("register")}
+              className="text-blue-600 font-semibold cursor-pointer hover:underline underline-offset-[3px]"
+            >
+              Create an Account
+            </a>
           </span>
         </p>
       </form>

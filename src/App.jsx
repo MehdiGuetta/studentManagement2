@@ -1,21 +1,23 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Auth from './Pages/Auth';
-import Profile from './Pages/Profile';
-import DeleteUser from './Pages/DeleteUser';
-import RegistrationForm from './Pages/Register';
-import Dashboard from './Pages/Dashboard';
-import SideBar from './Layout/SideBar';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Auth from "./Pages/Auth";
+import RegistrationForm from "./Pages/Register";
+import Dashboard from "./Pages/Dashboard";
+import NotFound from "./NotFound";
+import HomePage from "./Layout/NavItems/Home";
+import UserProfile from "./Layout/NavItems/UserProfile";
 
 const App = () => {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Auth />} />
-        <Route path="/profile" element={<Profile />} />
         <Route path="/register" element={<RegistrationForm />} />
-        <Route path="/delete" element={<DeleteUser />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/sidevar" element={<SideBar />} />
+        <Route path="/dashboard" element={<Dashboard />}>
+          <Route index element={<HomePage />} />
+          <Route path="home" element={<HomePage />} />
+          <Route path="profile" element={<UserProfile />} />
+        </Route>
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
   );

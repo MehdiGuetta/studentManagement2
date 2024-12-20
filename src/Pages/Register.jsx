@@ -1,6 +1,5 @@
 import { useState } from "react";
 import axios from "axios";
-import "../assets/styles/auth.css";
 import PasswordStrengthBar from "react-password-strength-bar";
 import { useNavigate } from "react-router-dom";
 import CountrySelector from "../Components/CountrySelector";
@@ -22,11 +21,14 @@ function RegistrationForm() {
 
   const handleChange = (e) => {
     const { name, value, type } = e.target;
-  
+
     if (name === "admin-user") {
       setFormData({ ...formData, admin: value === "true" });
     } else {
-      setFormData({ ...formData, [name]: type === "checkbox" ? e.target.checked : value });
+      setFormData({
+        ...formData,
+        [name]: type === "checkbox" ? e.target.checked : value,
+      });
     }
   };
 
@@ -84,10 +86,14 @@ function RegistrationForm() {
   };
 
   return (
-    <div className="container">
-      <h2 className="form-header"> Let{"'"}s get you signed up</h2>
-      <form className="signup-form" onSubmit={handleSubmit}>
+    <div className="min-w-[400px] h-auto bg-white rounded-md shadow-xl shadow-black-300 p-5 absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] ">
+      <h2 className="text-center"> Let{"'"}s get you signed up</h2>
+      <form
+        onSubmit={handleSubmit}
+        className="flex justify-center items-center flex-col gap-2.5 w-[400px] h-auto p-5"
+      >
         <input
+          className="w-96 py-3 px-4 border-none outline-blue-500 bg-[#eee] text-black rounded-md"
           type="text"
           name="firstName"
           placeholder="First Name"
@@ -96,6 +102,7 @@ function RegistrationForm() {
           required
         />
         <input
+          className="w-96 py-3 px-4 border-none outline-blue-500 bg-[#eee] text-black rounded-md"
           type="text"
           name="lastName"
           placeholder="Last Name"
@@ -104,6 +111,7 @@ function RegistrationForm() {
           required
         />
         <input
+          className="w-96 py-3 px-4 border-none outline-blue-500 bg-[#eee] text-black rounded-md"
           type="number"
           name="age"
           placeholder="Age"
@@ -113,6 +121,7 @@ function RegistrationForm() {
         />
 
         <input
+          className="w-96 py-3 px-4 border-none outline-blue-500 bg-[#eee] text-black rounded-md"
           type="text"
           name="username"
           placeholder="Username"
@@ -121,6 +130,7 @@ function RegistrationForm() {
           required
         />
         <input
+          className="w-96 py-3 px-4 border-none outline-blue-500 bg-[#eee] text-black rounded-md"
           type="email"
           name="email"
           placeholder="Email"
@@ -137,6 +147,7 @@ function RegistrationForm() {
         />
 
         <input
+          className="w-96 py-3 px-4 border-none outline-blue-500 bg-[#eee] text-black rounded-md"
           type="password"
           name="password"
           placeholder="Password"
@@ -146,11 +157,12 @@ function RegistrationForm() {
         />
         {formData.password.length > 0 && (
           <PasswordStrengthBar
-            className="pass-length"
+            className="w-96 -mt-1.5"
             password={formData.password}
           />
         )}
         <input
+          className="w-96 py-3 px-4 border-none outline-blue-500 bg-[#eee] text-black rounded-md"
           type="password"
           name="confirmPassword"
           placeholder="Confirm your Password"
@@ -158,10 +170,10 @@ function RegistrationForm() {
           onChange={handleChange}
           required
         />
-        <div className="radio-container">
-          <label className="radio-label">
+        <div className="flex flex-row w-64 justify-between">
+          <label className="flex flex-row justify-center items-center h-auto">
             <input
-              className="radio"
+              className="w-5 my-4"
               type="radio"
               name="admin-user"
               value="true"
@@ -172,7 +184,7 @@ function RegistrationForm() {
           </label>
           <label className="radio-label">
             <input
-              className="radio"
+              className="w-5 my-4"
               type="radio"
               name="admin-user"
               value="false"
@@ -183,7 +195,12 @@ function RegistrationForm() {
           </label>
         </div>
         {error && <p className="error-message">{error}</p>}
-        <button type="submit">Sign UP</button>
+        <button
+          type="submit"
+          className="w-96 py-3 px-4 border-none bg-blue-600 text-white rounded-md hover:opacity-85 transition duration-200"
+        >
+          Sign UP
+        </button>
       </form>
     </div>
   );

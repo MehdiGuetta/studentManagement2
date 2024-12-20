@@ -3,10 +3,14 @@ import Header from "../Layout/Header";
 import NavigationBar from "../Layout/NavigationBar";
 import { useNavigate } from "react-router-dom";
 import SideBar from "../Layout/SideBar";
+import Section from "../Layout/Section";
+import Footer from "../Layout/Footer";
 
 const Dashboard = () => {
   const user = useSelector((state) => state.user);
   const navigate = useNavigate();
+
+  console.log(user)
 
   if (!user) {
     return (
@@ -21,7 +25,11 @@ const Dashboard = () => {
     <div>
       <Header />
       <NavigationBar />
-      <SideBar />
+      <div className="flex">
+        <SideBar />
+        <Section />
+      </div>
+      <Footer />
     </div>
   );
 };
