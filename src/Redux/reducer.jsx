@@ -1,6 +1,7 @@
 // reducer.jsx
 const initialState = {
   user: null,
+  color: "",
 };
 
 const userReducer = (state = initialState, action) => {
@@ -14,7 +15,7 @@ const userReducer = (state = initialState, action) => {
     case "UPDATE_COLOR":
       return {
         ...state,
-        user: { ...state.user, couleur: action.payload },
+       color: action.payload,
       };
     default:
       return state;

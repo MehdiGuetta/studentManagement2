@@ -4,7 +4,7 @@ import Header from "../Layout/Header";
 import Section from "../Layout/Section";
 import Footer from "../Layout/Footer";
 import UserNavigationBar from "../Layout/UserNavigationBar";
-import UserSideBar from "../Layout/SideBar";
+import UserSideBar from "../Layout/UserSideBar";
 
 
 const UserDashboard = () => {

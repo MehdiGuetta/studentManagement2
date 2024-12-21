@@ -58,6 +58,7 @@ function RegistrationForm() {
     if (formData.password && !validatePassword(formData.password))
       errors.password =
         "Password must contain at least 8 characters, including uppercase, lowercase, number, and special character";
+    if (!formData.country) errors.country = "Country selection is required";
 
     setError(errors);
     return Object.keys(errors).length === 0;
@@ -108,119 +109,121 @@ function RegistrationForm() {
   };
 
   return (
-    <div className="min-w-[400px] h-auto bg-white rounded-md shadow-xl shadow-black-300 p-5 mt-10">
-      <h2 className="text-center mb-5 text-2xl font-bold ">
-        {" "}
+    <div className="h-auto bg-white rounded-md shadow-xl shadow-black-300 p-3 mt-10 absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]">
+      <h2 className="text-center text-2xl font-bold">
         Let{"'"}s get you signed up
       </h2>
       <form
         onSubmit={handleSubmit}
-        className="flex justify-center items-center flex-col gap-2.5 w-[400px] h-auto p-5"
+        className="flex justify-center flex-wrap gap-3 min-w-[400px] h-auto p-5 relative "
       >
-        <input
-          className="w-96 py-3 px-4 border-none outline-blue-500 bg-[#eee] text-black rounded-md"
-          type="text"
-          name="firstName"
-          placeholder="First Name"
-          value={formData.firstName}
-          onChange={handleChange}
-        />
-        {error.firstName && <p className="text-red-400">{error.firstName}</p>}
-
-        <input
-          className="w-96 py-3 px-4 border-none outline-blue-500 bg-[#eee] text-black rounded-md"
-          type="text"
-          name="lastName"
-          placeholder="Last Name"
-          value={formData.lastName}
-          onChange={handleChange}
-        />
-        {error.lastName && <p className="text-red-400">{error.lastName}</p>}
-
-        <input
-          className="w-96 py-3 px-4 border-none outline-blue-500 bg-[#eee] text-black rounded-md"
-          type="number"
-          name="age"
-          placeholder="Age"
-          value={formData.age}
-          onChange={handleChange}
-        />
-        {error.age && <p className="text-red-400">{error.age}</p>}
-
-        <input
-          className="w-96 py-3 px-4 border-none outline-blue-500 bg-[#eee] text-black rounded-md"
-          type="text"
-          name="username"
-          placeholder="Username"
-          value={formData.username}
-          onChange={handleChange}
-        />
-        {error.username && <p className="text-red-400">{error.username}</p>}
-
-        <input
-          className="w-96 py-3 px-4 border-none outline-blue-500 bg-[#eee] text-black rounded-md"
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={formData.email}
-          onChange={handleChange}
-        />
-        {error.email && <p className="text-red-400">{error.email}</p>}
-
-        <CountrySelect onChange={handleChange} name="country" />
-
-        <PasswordInput
-          name="password"
-          placeholder="Password"
-          value={formData.password}
-          onChange={handleChange}
-        />
-        {error.password && <p className="text-red-400">{error.password}</p>}
-        {formData.password.length > 0 && (
-          <PasswordStrengthBar
-            className="w-96 -mt-1.5"
-            password={formData.password}
+        <div className="flex flex-col gap-3">
+          <input
+            className="w-96 py-3 px-4 border-none outline-blue-500 bg-[#eee] text-black rounded-md"
+            type="text"
+            name="firstName"
+            placeholder="First Name"
+            value={formData.firstName}
+            onChange={handleChange}
           />
-        )}
-        <PasswordInput
-          name="confirmPassword"
-          placeholder="Confirm Password"
-          value={formData.confirmPassword}
-          onChange={handleChange}
-        />
-        {error.confirmPassword && (
-          <p className="text-red-400">{error.confirmPassword}</p>
-        )}
-        {error.passwordMatch && (
-          <p className="text-red-400">{error.passwordMatch}</p>
-        )}
+          {error.firstName && <p className="text-red-400">{error.firstName}</p>}
 
-        <div className="flex flex-row w-64 justify-between">
-          <label className="flex flex-row justify-center items-center h-auto">
-            <input
-              className="w-5 my-4"
-              type="radio"
-              name="admin-user"
-              value="true"
-              checked={formData.admin === true}
-              onChange={handleChange}
-            />
-            Admin
-          </label>
-          <label className="flex flex-row justify-center items-center h-auto">
-            <input
-              className="w-5 my-4"
-              type="radio"
-              name="admin-user"
-              value="false"
-              checked={formData.admin === false}
-              onChange={handleChange}
-            />
-            User
-          </label>
+          <input
+            className="w-96 py-3 px-4 border-none outline-blue-500 bg-[#eee] text-black rounded-md"
+            type="text"
+            name="lastName"
+            placeholder="Last Name"
+            value={formData.lastName}
+            onChange={handleChange}
+          />
+          {error.lastName && <p className="text-red-400">{error.lastName}</p>}
+
+          <input
+            className="w-96 py-3 px-4 border-none outline-blue-500 bg-[#eee] text-black rounded-md"
+            type="number"
+            name="age"
+            placeholder="Age"
+            value={formData.age}
+            onChange={handleChange}
+          />
+          {error.age && <p className="text-red-400">{error.age}</p>}
+
+          <input
+            className="w-96 py-3 px-4 border-none outline-blue-500 bg-[#eee] text-black rounded-md"
+            type="text"
+            name="username"
+            placeholder="Username"
+            value={formData.username}
+            onChange={handleChange}
+          />
+          {error.username && <p className="text-red-400">{error.username}</p>}
+          <div className="w-96 flex flex-row justify-around items-center py-3">
+            <label className="flex flex-row justify-center items-center h-auto">
+              <input
+                className="w-5"
+                type="radio"
+                name="admin-user"
+                value="true"
+                checked={formData.admin === true}
+                onChange={handleChange}
+              />
+              Admin
+            </label>
+            <label className="flex flex-row justify-center items-center h-auto">
+              <input
+                className="w-5"
+                type="radio"
+                name="admin-user"
+                value="false"
+                checked={formData.admin === false}
+                onChange={handleChange}
+              />
+              User
+            </label>
+          </div>
         </div>
 
-        {error.submit && <p className="text-red-400">{error.submit}</p>}
+        <div className="flex flex-col gap-3">
+          <input
+            className="w-96 py-3 px-4 border-none outline-blue-500 bg-[#eee] text-black rounded-md"
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={formData.email}
+            onChange={handleChange}
+          />
+          {error.email && <p className="text-red-400">{error.email}</p>}
+
+          <PasswordInput
+            name="password"
+            placeholder="Password"
+            value={formData.password}
+            onChange={handleChange}
+          />
+          {error.password && (
+            <p className="text-red-400 w-96">{error.password}</p>
+          )}
+          {formData.password.length > 0 && (
+            <PasswordStrengthBar
+              className="w-96 -mt-1.5"
+              password={formData.password}
+            />
+          )}
+          <PasswordInput
+            name="confirmPassword"
+            placeholder="Confirm Password"
+            value={formData.confirmPassword}
+            onChange={handleChange}
+          />
+          {error.confirmPassword && (
+            <p className="text-red-400">{error.confirmPassword}</p>
+          )}
+          {error.passwordMatch && (
+            <p className="text-red-400">{error.passwordMatch}</p>
+          )}
+
+          <CountrySelect onChange={handleChange} name="country" />
+        </div>
 
         <button
           type="submit"
@@ -229,6 +232,9 @@ function RegistrationForm() {
           Sign UP
         </button>
       </form>
+      {error.submit && (
+        <p className="text-red-400 text-center">{error.submit}</p>
+      )}
     </div>
   );
 }
