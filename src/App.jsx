@@ -17,7 +17,11 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Auth />} />
         <Route path="/register" element={<RegistrationForm />} />
-        <Route path="/user-dashboard" element={<UserDashboard />} />
+        <Route path="/user-dashboard" element={<UserDashboard />}>
+          <Route index path="home" element={<HomePage />} />
+          <Route path="profile" element={<UserProfile />} />
+          <Route path="edit-color" element={<EditColor />} />
+        </Route>
         <Route path="/admin-dashboard" element={<AdminDashboard />}>
           <Route index path="home" element={<HomePage />} />
           <Route path="profile" element={<UserProfile />} />
