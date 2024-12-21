@@ -1,32 +1,28 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+import countriesData from "../assets/all_countries.json"; // Import the JSON file
 
-const CountrySelector = ({ value, onChange }) => {
+const CountrySelector = ({ name, onChange }) => {
   const [countries, setCountries] = useState([]);
 
   useEffect(() => {
-    fetch("https://restcountries.com/v3.1/all")
-      .then((response) => response.json())
-      .then((data) => {
-        const countryNames = data.map((country) => country.name.common).sort();
-        setCountries(countryNames);
-      })
-      .catch((error) => console.error("Error fetching countries:", error));
+    setCountries(countriesData);
   }, []);
-
   return (
-    <select
-      className="w-96 py-3 px-4 border-none outline-none bg-[#eee] text-black rounded-md"
-      value={value}
-      onChange={onChange}
-      required
-    >
-      <option value="">Select a Country</option>
-      {countries.map((country, index) => (
-        <option key={index} value={country}>
-          {country}
-        </option>
-      ))}
-    </select>
+    <div>
+      <select
+        name={name}
+        onChange={onChange}
+        className="w-96 py-3 px-4 border-none outline-blue-500 bg-[#eee] text-black rounded-md"
+      >
+        <option value="">Select Country</option>
+        {countries.map((country, index) => (
+          <option key={index} value={country}>
+            {country}
+            
+          </option>
+        ))}
+      </select>
+    </div>
   );
 };
 

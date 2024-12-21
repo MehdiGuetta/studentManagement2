@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import PasswordStrengthBar from "react-password-strength-bar";
 import { useNavigate } from "react-router-dom";
-import CountrySelector from "../Components/CountrySelector";
+import CountrySelect from "../Components/CountrySelector";
 
 function RegistrationForm() {
   const [error, setError] = useState("");
@@ -60,7 +60,7 @@ function RegistrationForm() {
 
     if (!validatePassword(formData.password)) {
       setError(
-        "The password must contain at least 8 charecter, an uppercase, a lowercase, a number and a special character"
+        "The password must contain at least 8 charecter and countains uppercase, lowercase, number and special character"
       );
       return;
     } else if (formData.password !== formData.confirmPassword) {
@@ -139,12 +139,7 @@ function RegistrationForm() {
           required
         />
 
-        <CountrySelector
-          value={formData.country}
-          onChange={(e) =>
-            setFormData({ ...formData, country: e.target.value })
-          }
-        />
+        <CountrySelect onChange={handleChange} name="country" />
 
         <input
           className="w-96 py-3 px-4 border-none outline-blue-500 bg-[#eee] text-black rounded-md"
@@ -182,7 +177,7 @@ function RegistrationForm() {
             />
             Admin
           </label>
-          <label className="radio-label">
+          <label className="flex flex-row justify-center items-center h-auto">
             <input
               className="w-5 my-4"
               type="radio"
