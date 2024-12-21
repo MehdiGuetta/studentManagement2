@@ -12,17 +12,24 @@ const getLuminance = (color) => {
   return 0.2126 * r + 0.7152 * g + 0.0722 * b;
 };
 
-// Custom hook
 const useDynamicTextColor = () => {
-  const userColor = useSelector((state) => state.user.couleur || "#ffffff"); // Default to white
+  const userColor = useSelector((state) => state.user.couleur); 
+  const updatedColor = useSelector((state) => state.color); 
+
   const [textColor, setTextColor] = useState("black");
+  const [backgroundColor, setBackgroundColor] = useState(userColor); 
 
   useEffect(() => {
-    const luminance = getLuminance(userColor);
-    setTextColor(luminance > 0.5 ? "black" : "white");
-  }, [userColor]);
+    const colorToUse = updatedColor || userColor;
+    setBackgroundColor(colorToUse);
 
-  return { backgroundColor: userColor, textColor };
+    if (colorToUse) {
+      const luminance = getLuminance(colorToUse);
+      setTextColor(luminance > 0.5 ? "black" : "white");
+    }
+  }, [updatedColor, userColor]); 
+
+  return { backgroundColor, textColor };
 };
 
 export default useDynamicTextColor;
