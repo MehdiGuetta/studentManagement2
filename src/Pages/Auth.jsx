@@ -4,6 +4,7 @@ import { login } from "../Redux/actions";
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import PasswordInput from "../Components/PasswordInput";
 
 const Auth = () => {
   const [username, setUsername] = useState("");
@@ -70,9 +71,8 @@ const Auth = () => {
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
-        <input
-          className="w-96 py-3 px-4 border-none outline-blue-500 bg-[#eee] text-black rounded-md"
-          type="password"
+        <PasswordInput
+          name="password"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
