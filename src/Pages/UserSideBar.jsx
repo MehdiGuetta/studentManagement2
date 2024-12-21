@@ -1,31 +1,26 @@
 import { NavLink } from "react-router-dom";
 import useDynamicTextColor from "../Components/useDynamicTextColor";
 
-const NavigationBar = () => {
+const UserSideBar = () => {
   const { backgroundColor, textColor } = useDynamicTextColor();
-  const links = [
-    { path: "/admin-dashboard/home", label: "Home" },
-    { path: "/admin-dashboard/profile", label: "My Profile" },
-    { path: "/admin-dashboard/edit-color", label: "Edit Color" },
-    { path: "/admin-dashboard/users-list", label: "Users List" },
-    { path: "/admin-dashboard/add-user", label: "Add User" },
-    { path: "/admin-dashboard/requests", label: "Requests" },
-  ];
-
   return (
-    <nav
-      className="w-full h-20"
+    <aside
+      className="h-auto w-0 md:min-w-[16%]"
       style={{ color: textColor, backgroundColor: backgroundColor }}
     >
-      <ul className="h-full flex justify-center items-center gap-10">
-        {links.map(({ path, label }) => (
+      <ul className="h-auto py-12 flex flex-col gap-10 text-xl font-semibold items-center">
+        {[
+          { path: "/dashboard/home", label: "Home" },
+          { path: "/dashboard/profile", label: "My Profile" },
+          { path: "/dashboard/edit-color", label: "Edit Color" },
+        ].map(({ path, label }) => (
           <li key={path} className="list-none">
             <NavLink
               to={path}
               className={({ isActive }) =>
-                ` text-lg font-bold no-underline whitespace-nowrap cursor-pointer transition-colors duration-100 ease-in select-none ${
+                ` text-lg font-semibold no-underline whitespace-nowrap cursor-pointer transition-colors duration-100 ease-in select-none ${
                   isActive
-                    ? "border-black text-black underline"
+                    ? "border-black text-black"
                     : "border-transparent hover:border-black hover:text-black hover:underline"
                 }`
               }
@@ -42,8 +37,8 @@ const NavigationBar = () => {
           </li>
         ))}
       </ul>
-    </nav>
+    </aside>
   );
 };
 
-export default NavigationBar;
+export default UserSideBar;

@@ -9,26 +9,41 @@ const Auth = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [counter, setCounter] = useState(0);
-
   const [error, setError] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
+
+    if (!username.trim() || !password.trim()) {
+      setError("Both username and password are required.");
+      return;
+    }
+
+    if (password.length < 6) {
+      setError("Password must be at least 6 characters.");
+      return;
+    }
     try {
       const response = await axios.get(
         "https://676187c546efb37323720b38.mockapi.io/stagiaires"
       );
       const users = response.data;
-
       const matchedUser = users.find(
         (user) => user.pseudo === username && user.MotDePasse === password
       );
 
       if (matchedUser) {
-        dispatch(login(matchedUser));
-        navigate("/dashboard");
+        if (matchedUser.admin) {
+          // If the user is an admin
+          dispatch(login(matchedUser));
+          navigate("/admin-dashboard");
+        } else {
+          // If the user is not an admin
+          dispatch(login(matchedUser));
+          navigate("/user-dashboard");
+        }
       } else {
         setError("Invalid username or password");
         setCounter((prev) => prev + 1);
@@ -54,7 +69,6 @@ const Auth = () => {
           placeholder="Username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
-          required
         />
         <input
           className="w-96 py-3 px-4 border-none outline-blue-500 bg-[#eee] text-black rounded-md"
@@ -62,7 +76,6 @@ const Auth = () => {
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          required
         />
         {counter <= 2 ? (
           <button
@@ -80,7 +93,11 @@ const Auth = () => {
             Authenticate
           </button>
         )}
-        {<p className="text-red-500">{error}</p>}
+        {counter <= 2 ? (
+          <p className="text-red-500 text-center">{error}</p>
+        ) : (
+          <p className="text-red-500 text-center">Try again later</p>
+        )}
         <p className="text-[14px]">
           Not registered?
           <span>

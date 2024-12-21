@@ -1,15 +1,12 @@
 import { NavLink } from "react-router-dom";
 import useDynamicTextColor from "../Components/useDynamicTextColor";
 
-const NavigationBar = () => {
+const UserNavigationBar = () => {
   const { backgroundColor, textColor } = useDynamicTextColor();
   const links = [
-    { path: "/admin-dashboard/home", label: "Home" },
-    { path: "/admin-dashboard/profile", label: "My Profile" },
-    { path: "/admin-dashboard/edit-color", label: "Edit Color" },
-    { path: "/admin-dashboard/users-list", label: "Users List" },
-    { path: "/admin-dashboard/add-user", label: "Add User" },
-    { path: "/admin-dashboard/requests", label: "Requests" },
+    { path: "/user-dashboard/home", label: "Home" },
+    { path: "/user-dashboard/profile", label: "My Profile" },
+    { path: "/user-dashboard/edit-color", label: "Edit Color" },
   ];
 
   return (
@@ -46,4 +43,4 @@ const NavigationBar = () => {
   );
 };
 
-export default NavigationBar;
+export default UserNavigationBar;

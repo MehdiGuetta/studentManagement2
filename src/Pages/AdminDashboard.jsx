@@ -6,7 +6,7 @@ import SideBar from "../Layout/SideBar";
 import Section from "../Layout/Section";
 import Footer from "../Layout/Footer";
 
-const Dashboard = () => {
+const AdminDashboard = () => {
   const user = useSelector((state) => state.user);
   const navigate = useNavigate();
 
@@ -32,4 +32,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default AdminDashboard;

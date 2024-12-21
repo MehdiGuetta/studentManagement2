@@ -4,8 +4,11 @@ import useDynamicTextColor from "../Components/useDynamicTextColor";
 const SideBar = () => {
   const { backgroundColor, textColor } = useDynamicTextColor();
   return (
-    <aside className="h-auto w-[16%]" style={{ color: textColor, backgroundColor: backgroundColor}}>
-      <ul className="h-auto py-12 px-24 flex flex-col gap-10 text-xl font-semibold">
+    <aside
+      className="h-auto w-0 md:min-w-[16%]"
+      style={{ color: textColor, backgroundColor: backgroundColor }}
+    >
+      <ul className="h-auto py-12 flex flex-col gap-10 text-xl font-semibold items-center">
         {[
           { path: "/dashboard/home", label: "Home" },
           { path: "/dashboard/profile", label: "My Profile" },
@@ -27,9 +30,9 @@ const SideBar = () => {
               style={({ isActive }) => ({
                 transform: "perspective(1px) translateZ(0)",
                 borderBottom: isActive
-                  ? "2px solid #000"
+                  ? `2px solid ${textColor}`
                   : "2px solid transparent",
-                  color:textColor
+                color: textColor,
               })}
             >
               {label}
