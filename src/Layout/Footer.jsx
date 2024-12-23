@@ -4,7 +4,7 @@ const Footer = () => {
   const { backgroundColor, textColor } = useDynamicTextColor();
   return (
     <footer
-      className="w-full flex justify-center fixed left-0 bottom-0 items-center h-auto py-12"
+      className="w-full flex justify-center items-center h-auto py-8 absolute"
       style={{ color: textColor, backgroundColor: backgroundColor }}
     >
       <div>Footer</div>

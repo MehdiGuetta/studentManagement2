@@ -3,14 +3,14 @@ import { useState } from "react";
 import { CompactPicker } from "react-color";
 import { useDispatch, useSelector } from "react-redux";
 import { updateColor } from "../../Redux/actions";
+import useDynamicTextColor from "../../Components/useDynamicTextColor";
 
 const EditColor = () => {
   const user = useSelector((state) => state.user); // Assuming `state.user` contains the user object
   const userColor = useSelector((state) => state.color); // Assuming `state.user` contains the user object
   const [color, setColor] = useState("");
   const dispatch = useDispatch();
-  console.log(userColor)
-
+  const { backgroundColor, textColor } = useDynamicTextColor();
 
   const handleColorChange = (selectedColor) => {
     setColor(selectedColor.hex);
@@ -35,15 +35,29 @@ const EditColor = () => {
         console.error("Error from API:", err);
       });
 
-      console.log(userColor)
+    console.log(userColor);
   };
 
   return (
-    <div>
-      <CompactPicker onChange={handleColorChange} />
+    <div className="flex flex-col gap-10 items-center">
+      <h1
+        className="font-bold text-4xl"
+        style={{
+          color: backgroundColor === "#ffffff" ? textColor : backgroundColor,
+        }}
+      >
+        Pick a Color
+      </h1>
+      <CompactPicker color={color} onChange={handleColorChange} />
+
       <button
         onClick={handleApply}
-        className="w-96 py-3 px-4 border-none bg-blue-600 text-white rounded-md hover:opacity-85 transition duration-200"
+        className="bg-white px-8 py-4 font-bold rounded-lg hover:opacity-80"
+        style={{
+          color: textColor,
+          backgroundColor: backgroundColor,
+          border: `1px solid ${textColor}`,
+        }}
       >
         Apply changes
       </button>

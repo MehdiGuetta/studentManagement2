@@ -18,13 +18,13 @@ function RegistrationForm() {
     confirmPassword: "",
     admin: true,
     age: "",
+    photo: "https://loremflickr.com/640/480",
   });
 
   const handleChange = (e) => {
     const { name, value, type } = e.target;
 
     if (name === "age") {
-      // Only allow positive numbers for age
       if ((value > 0 && value <= 100) || value === "") {
         setFormData({
           ...formData,
@@ -90,6 +90,7 @@ function RegistrationForm() {
       MotDePasse: formData.password,
       admin: formData.admin,
       age: formData.age,
+      photo: formData.photo,
     };
 
     axios
@@ -157,30 +158,14 @@ function RegistrationForm() {
             onChange={handleChange}
           />
           {error.username && <p className="text-red-400">{error.username}</p>}
-          <div className="w-96 flex flex-row justify-around items-center py-3">
-            <label className="flex flex-row justify-center items-center h-auto">
-              <input
-                className="w-5"
-                type="radio"
-                name="admin-user"
-                value="true"
-                checked={formData.admin === true}
-                onChange={handleChange}
-              />
-              Admin
-            </label>
-            <label className="flex flex-row justify-center items-center h-auto">
-              <input
-                className="w-5"
-                type="radio"
-                name="admin-user"
-                value="false"
-                checked={formData.admin === false}
-                onChange={handleChange}
-              />
-              User
-            </label>
-          </div>
+          <input
+            className="w-96 py-3 px-4 border-none outline-blue-500 bg-[#eee] text-black rounded-md"
+            type="url"
+            name="photo"
+            placeholder="Image Url"
+            value={formData.photo}
+            onChange={handleChange}
+          />
         </div>
 
         <div className="flex flex-col gap-3">
@@ -223,6 +208,31 @@ function RegistrationForm() {
           )}
 
           <CountrySelect onChange={handleChange} name="country" />
+          <div className="w-96 flex flex-row justify-around items-center py-3">
+            <label className="flex flex-row justify-center items-center h-auto">
+              <input
+                className="w-5"
+                type="radio"
+                name="admin-user"
+                value="true"
+                checked={formData.admin === true}
+                onChange={handleChange}
+              />
+              Admin
+            </label>
+
+            <label className="flex flex-row justify-center items-center h-auto">
+              <input
+                className="w-5"
+                type="radio"
+                name="admin-user"
+                value="false"
+                checked={formData.admin === false}
+                onChange={handleChange}
+              />
+              User
+            </label>
+          </div>
         </div>
 
         <button

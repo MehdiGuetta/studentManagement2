@@ -18,15 +18,15 @@ const Header = () => {
   return (
     <header
       className="w-full h-36 flex justify-between items-center pl-52 pr-44"
-      style={{ color: textColor, backgroundColor: backgroundColor}}
+      style={{ color: textColor, backgroundColor: backgroundColor }}
     >
       <div>
         <img src={logo} className="w-24 select-none" />
       </div>
       <div className="flex justify-center items-center gap-12">
         <div>
-          <h3 className="text-xl font-semibold" style={{color: textColor}}>
-            Welcome, <span className="font-bold text-3xl">{user.prenom} {user.nom}</span>
+          <h3 className=" font-bold text-3xl" style={{ color: textColor }}>
+            {user.prenom} {user.nom}
           </h3>
         </div>
         <div className="logout">
