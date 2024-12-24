@@ -1,8 +1,13 @@
-import { BrowserRouter  as Router, Routes, Route, Navigate } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import Auth from "./Pages/Auth";
 import RegistrationForm from "./Pages/Register";
 import AdminDashboard from "./Pages/AdminDashboard";
-import NotFound from "./NotFound";
+import NotFound from "./Pages/NotFound";
 import HomePage from "./Layout/NavItems/Home";
 import EditColor from "./Layout/NavItems/EditColor";
 import UserList from "./Layout/NavItems/UserList";
@@ -18,13 +23,14 @@ const App = () => {
         <Route path="/" element={<Auth />} />
         <Route path="/register" element={<RegistrationForm />} />
         <Route path="/user-dashboard" element={<UserDashboard />}>
-          <Route index path="home" element={<HomePage />} />
+          <Route index element={<Navigate to="home" />} />
+          <Route path="home" element={<HomePage />} />
           <Route path="profile" element={<Profile />} />
           <Route path="edit-color" element={<EditColor />} />
         </Route>
         <Route path="/admin-dashboard" element={<AdminDashboard />}>
-        <Route index element={<Navigate to="home" />} /> 
-        <Route path="home" element={<HomePage />} />
+          <Route index element={<Navigate to="home" />} />
+          <Route path="home" element={<HomePage />} />
           <Route path="profile" element={<Profile />} />
           <Route path="edit-color" element={<EditColor />} />
           <Route path="users-list" element={<UserList />} />
