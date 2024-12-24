@@ -1,3 +1,3 @@
 export default function Requests() {
-  return <div>Requests</div>;
+  return <div className="h-full">Requests</div>;
 }

@@ -20,13 +20,15 @@ const AdminDashboard = () => {
   }
 
   return (
-    <div>
+    <div className="flex flex-col min-h-screen">
       <Header />
       <NavigationBar />
-      <div className="flex">
-        <SideBar />
-        <Section />
-      </div>
+      <main className="flex-1">
+        <div className="flex justify-between">
+          <SideBar />
+          <Section />
+        </div>
+      </main>
       <Footer />
     </div>
   );

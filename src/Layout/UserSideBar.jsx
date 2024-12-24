@@ -1,40 +1,41 @@
 import { NavLink } from "react-router-dom";
 import useDynamicTextColor from "../Components/useDynamicTextColor";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHouse } from "@fortawesome/free-solid-svg-icons";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { faPalette } from "@fortawesome/free-solid-svg-icons";
 
 const UserSideBar = () => {
   const { backgroundColor, textColor } = useDynamicTextColor();
+  const links = [
+    { path: "/user-dashboard/home", label: "Home", icon: faHouse },
+    { path: "/user-dashboard/profile", label: "My Profile", icon: faUser },
+    {
+      path: "/user-dashboard/edit-color",
+      label: "Edit Color",
+      icon: faPalette,
+    },
+  ];
   return (
     <aside
-      className="h-auto w-0 md:min-w-[16%]"
+      className="pt-10 h-[80vh] w-0 md:min-w-[16%]"
       style={{ color: textColor, backgroundColor: backgroundColor }}
     >
-      <ul className="h-auto py-12 flex flex-col gap-10 text-xl font-semibold items-center">
-        {[
-          { path: "/user-dashboard/home", label: "Home" },
-          { path: "/user-dashboard/profile", label: "My Profile" },
-          { path: "/user-dashboard/edit-color", label: "Edit Color" },
-        ].map(({ path, label }) => (
+      <ul className="flex-column space-y space-y-4 text-sm font-medium text-gray-500 dark:text-gray-400 md:me-4 mb-4 md:mb-0 ">
+        {links.map(({ path, label, icon }) => (
           <li key={path} className="list-none">
-            <NavLink
-              to={path}
-              className={({ isActive }) =>
-                ` text-lg font-semibold no-underline whitespace-nowrap cursor-pointer transition-colors duration-100 ease-in select-none ${
-                  isActive
-                    ? "border-black text-black"
-                    : "border-transparent hover:border-black hover:text-black hover:underline"
-                }`
-              }
-              style={({ isActive }) => ({
-                transform: "perspective(1px) translateZ(0)",
-                borderBottom: isActive
-                  ? `2px solid ${textColor}`
-                  : "2px solid transparent",
-                color: textColor,
-              })}
-            >
-              {label}
-            </NavLink>
-          </li>
+          <NavLink
+            to={path}
+            className="inline-flex items-center px-4 py-3 rounded-lg active w-full cursor-pointer transition-colors duration-100 ease-in select-none"
+            style={({ isActive }) => ({
+              backgroundColor: isActive ? textColor : backgroundColor,
+              color: isActive ? backgroundColor : textColor,
+            })}
+          >
+            <FontAwesomeIcon className="w-5 h-4 me-3" icon={icon} />
+            {label}
+          </NavLink>
+        </li>
         ))}
       </ul>
     </aside>

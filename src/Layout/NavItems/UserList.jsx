@@ -16,8 +16,8 @@ export default function UserList() {
   }, []);
 
   return (
-    <div className="relative overflow-x-auto  w-full ">
-      <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+    <div className="overflow-x-auto h-full w-full flex justify-center">
+      <table className=" m-2 w-[80%] text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
             <th scope="col" className="px-6 py-3">
@@ -47,7 +47,7 @@ export default function UserList() {
           {users.map((user) => (
             <tr
               key={user.id}
-              className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700"
+              className="bg-white border-b text-gray-500 dark:border-white hover:bg-white dark:hover:bg-gray-200"
             >
               <td className="w-4 p-4">
                 <img
@@ -58,7 +58,7 @@ export default function UserList() {
               </td>
               <th
                 scope="row"
-                className="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white"
+                className="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-black"
               >
                 <div className="">
                   <div className="text-base font-semibold">
@@ -70,7 +70,15 @@ export default function UserList() {
               <td className="px-6 py-4  font-semibold">{user.Pays}</td>
               <td className="px-6 py-4  font-semibold">
                 <div className="flex items-center">
-                  {user.admin === true ? "Admin" : "User"}
+                  {user.admin === true ? (
+                    <span className="-green-100 text-green-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">
+                      Admin
+                    </span>
+                  ) : (
+                    <span className="-blue-100 text-blue-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">
+                      User
+                    </span>
+                  )}
                 </div>
               </td>
               <td className="px-6 py-4  font-semibold">

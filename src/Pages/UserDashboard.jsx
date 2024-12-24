@@ -6,7 +6,6 @@ import Footer from "../Layout/Footer";
 import UserNavigationBar from "../Layout/UserNavigationBar";
 import UserSideBar from "../Layout/UserSideBar";
 
-
 const UserDashboard = () => {
   const user = useSelector((state) => state.user);
   const navigate = useNavigate();
@@ -21,13 +20,15 @@ const UserDashboard = () => {
   }
 
   return (
-    <div>
+    <div className="flex flex-col min-h-screen">
       <Header />
       <UserNavigationBar />
-      <div className="flex">
-        <UserSideBar />
-        <Section />
-      </div>
+      <main className="flex-1">
+        <div className="flex justify-between">
+          <UserSideBar />
+          <Section />
+        </div>
+      </main>
       <Footer />
     </div>
   );

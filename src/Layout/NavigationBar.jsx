@@ -1,42 +1,64 @@
 import { NavLink } from "react-router-dom";
 import useDynamicTextColor from "../Components/useDynamicTextColor";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHouse } from "@fortawesome/free-solid-svg-icons";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { faPalette } from "@fortawesome/free-solid-svg-icons";
+import { faRectangleList } from "@fortawesome/free-solid-svg-icons";
+import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
+import { faIdCardClip } from "@fortawesome/free-solid-svg-icons";
 
 const NavigationBar = () => {
   const { backgroundColor, textColor } = useDynamicTextColor();
   const links = [
-    { path: "/admin-dashboard/home", label: "Home" },
-    { path: "/admin-dashboard/profile", label: "My Profile" },
-    { path: "/admin-dashboard/edit-color", label: "Edit Color" },
-    { path: "/admin-dashboard/users-list", label: "Users List" },
-    { path: "/admin-dashboard/add-user", label: "Add User" },
-    { path: "/admin-dashboard/requests", label: "Requests" },
+    {
+      path: "/admin-dashboard/home",
+      label: "Home",
+      icon: faHouse,
+    },
+    {
+      path: "/admin-dashboard/profile",
+      label: "My Profile",
+      icon: faUser,
+    },
+    {
+      path: "/admin-dashboard/edit-color",
+      label: "Edit Color",
+      icon: faPalette,
+    },
+    {
+      path: "/admin-dashboard/users-list",
+      label: "Users List",
+      icon: faRectangleList,
+    },
+    {
+      path: "/admin-dashboard/add-user",
+      label: "Add User",
+      icon: faUserPlus,
+    },
+    {
+      path: "/admin-dashboard/requests",
+      label: "Requests",
+      icon: faIdCardClip,
+    },
   ];
 
   return (
     <nav
-      className="w-full h-20"
       style={{ color: textColor, backgroundColor: backgroundColor }}
     >
-      <ul className="h-full flex justify-center items-center gap-10">
-        {links.map(({ path, label }) => (
-          <li key={path} className="list-none">
+      <ul className="flex flex-wrap text-sm font-medium text-center text-gray-500 dark:text-gray-400 justify-center ">
+        {links.map(({ path, label, icon }) => (
+          <li key={path} className="me-2 ">
             <NavLink
               to={path}
-              className={({ isActive }) =>
-                ` text-lg font-bold no-underline whitespace-nowrap cursor-pointer transition-colors duration-100 ease-in select-none ${
-                  isActive
-                    ? "border-black text-black underline"
-                    : "border-transparent hover:border-black hover:text-black hover:underline"
-                }`
-              }
+              className="inline-flex items-center gap-3 select-none justify-center rounded-t-lg hover:text-gray-600 dark:hover:text-gray-300 group px-8 py-4"
               style={({ isActive }) => ({
-                transform: "perspective(1px) translateZ(0)",
-                borderBottom: isActive
-                  ? `2px solid ${textColor}`
-                  : "2px solid transparent",
-                color: textColor,
+                backgroundColor: isActive ? textColor : backgroundColor,
+                color: isActive ? backgroundColor : textColor,
               })}
             >
+              <FontAwesomeIcon icon={icon} />
               {label}
             </NavLink>
           </li>

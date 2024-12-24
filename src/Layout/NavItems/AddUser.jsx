@@ -108,7 +108,7 @@ function AddUser() {
   };
 
   return (
-    <div className="h-screen w-full bg-white rounded-md shadow-xl shadow-black-300 p-3 mt-10 flex flex-col">
+    <div className="h-full w-full bg-white rounded-md shadow-xl shadow-black-300 p-3 mt-10 flex flex-col">
       <h2 className="text-center text-2xl font-bold">Add User</h2>
       <form
         onSubmit={handleSubmit}

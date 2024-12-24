@@ -4,7 +4,7 @@ export default function Profile() {
   const user = useSelector((state) => state.user);
 
   return (
-    <div className="w-auto border border-gray-200 rounded-lg shadow bg-white p-10 ">
+    <div className="w-auto border h-full border-gray-200 rounded-lg shadow bg-white p-10 ">
       <div className="flex flex-col items-center py-10 justify-center ">
         <img
           className="w-24 h-24 mb-10 rounded-full shadow-lg "
@@ -19,7 +19,15 @@ export default function Profile() {
             <tr>
               <td className="px-20">Role: </td>
               <td className="px-20">
-                {user.admin === true ? "Admin" : "User"}
+                {user.admin === true ? (
+                  <span className="-green-100 text-green-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">
+                    Admin
+                  </span>
+                ) : (
+                  <span className="-blue-100 text-blue-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">
+                    User
+                  </span>
+                )}{" "}
               </td>
             </tr>
             <tr>
