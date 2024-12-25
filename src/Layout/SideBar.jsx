@@ -44,7 +44,7 @@ const SideBar = () => {
   ];
   return (
     <aside
-      className="pt-10 h-[80vh] w-0 md:min-w-[16%]"
+      className="pt-10 h-screen w-0 md:min-w-[15%]"
       style={{ color: textColor, backgroundColor: backgroundColor }}
     >
       <ul className="flex-column space-y space-y-4 text-sm font-medium text-gray-500 dark:text-gray-400 md:me-4 mb-4 md:mb-0 ml-4 md:ml-3 ">
