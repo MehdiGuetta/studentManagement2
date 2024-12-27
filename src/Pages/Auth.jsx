@@ -65,7 +65,7 @@ const Auth = () => {
           Let{"'"}s get you signed in!
         </h2>
         <input
-          className="w-96 py-3 px-4 border-none outline-blue-500 bg-[#eee] text-black rounded-md"
+          className="w-[360px] py-3 px-4 border-none outline-blue-500 bg-[#eee] text-black rounded-md"
           type="text"
           placeholder="Username"
           value={username}
@@ -79,7 +79,7 @@ const Auth = () => {
         />
         {counter <= 2 ? (
           <button
-            className="w-96 py-3 px-4 border-none bg-blue-600 text-white rounded-md hover:opacity-85 transition duration-200"
+            className="w-[360px] py-3 px-4 border-none bg-blue-600 text-white rounded-md hover:opacity-85 transition duration-200"
             type="submit"
           >
             Authenticate
