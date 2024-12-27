@@ -34,8 +34,8 @@ const EditColor = () => {
   };
 
   return (
-    <div className="h-full">
-      <div className="h-full flex justify-center flex-col gap-10">
+    <div className="w-full bg-white border-b-2 rounded-bl-xl rounded-br-xl shadow shadow-gray-200">
+      <div className="flex flex-col justify-end items-center gap-10 px-4 py-10">
         <h1
           className="font-bold text-4xl flex flex-col"
           style={{

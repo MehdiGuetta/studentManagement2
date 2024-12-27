@@ -108,59 +108,127 @@ function AddUser() {
   };
 
   return (
-    <div className="h-full w-full bg-white rounded-md shadow-xl shadow-black-300 p-3 mt-10 flex flex-col">
-      <h2 className="text-center text-2xl font-bold">Add User</h2>
-      <form
-        onSubmit={handleSubmit}
-        className=" min-w-[400px] h-auto p-5 relative flex flex-col items-center"
-      >
-        <div className="flex justify-center flex-wrap gap-3">
-          <div className="flex flex-col gap-3">
-            <input
-              className="w-96 py-3 px-4 border-none outline-blue-500 bg-[#eee] text-black rounded-md"
-              type="text"
-              name="firstName"
-              placeholder="First Name"
-              value={formData.firstName}
-              onChange={handleChange}
-            />
-            {error.firstName && (
-              <p className="text-red-400">{error.firstName}</p>
+    <div className="h-screen ">
+      <div className="w-full overflow-y-auto h-screen bg-white border-b-2 rounded-bl-xl rounded-br-xl shadow shadow-gray-200 p-10">
+        <h2 className="pb-4 text-center text-xl md:text-2xl font-bold">
+          Add User
+        </h2>
+        <form
+          onSubmit={handleSubmit}
+          className="max-w-screen-md mx-auto grid gap-6"
+        >
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <input
+                className="w-full py-3 px-4 border-none outline-blue-500 bg-[#eee] text-black rounded-md"
+                type="text"
+                name="firstName"
+                placeholder="First Name"
+                value={formData.firstName}
+                onChange={handleChange}
+              />
+              {error.firstName && (
+                <p className="text-red-400 pt-2">{error.firstName}</p>
+              )}
+            </div>
+
+            <div>
+              <input
+                className="w-full py-3 px-4 border-none outline-blue-500 bg-[#eee] text-black rounded-md"
+                type="text"
+                name="lastName"
+                placeholder="Last Name"
+                value={formData.lastName}
+                onChange={handleChange}
+              />
+              {error.lastName && (
+                <p className="text-red-400 pt-2">{error.lastName}</p>
+              )}
+            </div>
+
+            <div>
+              <input
+                className="w-full py-3 px-4 border-none outline-blue-500 bg-[#eee] text-black rounded-md"
+                type="number"
+                name="age"
+                placeholder="Age"
+                value={formData.age}
+                onChange={handleChange}
+              />
+              {error.age && <p className="text-red-400 pt-2">{error.age}</p>}
+            </div>
+
+            <div>
+              <input
+                className="w-full py-3 px-4 border-none outline-blue-500 bg-[#eee] text-black rounded-md"
+                type="text"
+                name="username"
+                placeholder="Username"
+                value={formData.username}
+                onChange={handleChange}
+              />
+              {error.username && (
+                <p className="text-red-400 pt-2">{error.username}</p>
+              )}
+            </div>
+
+            <div>
+              <input
+                className="w-full py-3 px-4 border-none outline-blue-500 bg-[#eee] text-black rounded-md"
+                type="email"
+                name="email"
+                placeholder="Email"
+                value={formData.email}
+                onChange={handleChange}
+              />
+              {error.email && (
+                <p className="text-red-400 pt-2">{error.email}</p>
+              )}
+            </div>
+
+            <div>
+              <CountrySelect onChange={handleChange} name="country" />
+              {error.country && (
+                <p className="text-red-400 pt-2">{error.country}</p>
+              )}
+            </div>
+            <div>
+              <PasswordInput
+                name="password"
+                placeholder="Password"
+                value={formData.password}
+                onChange={handleChange}
+              />
+              {error.password && (
+                <p className="text-red-400 pt-2">{error.password}</p>
+              )}
+              {formData.password.length > 0 && (
+                <PasswordStrengthBar
+                  className="w-full py-2 border-none outline-blue-500 text-black "
+                  password={formData.password}
+                />
+              )}
+            </div>
+
+            <div>
+              <PasswordInput
+                name="confirmPassword"
+                placeholder="Confirm Password"
+                value={formData.confirmPassword}
+                onChange={handleChange}
+              />
+              {error.confirmPassword && (
+              <p className="text-red-400 pt-2">{error.confirmPassword}</p>
+            )}
+            </div>
+            
+            {error.passwordMatch && (
+              <p className="text-red-400 pt-2">{error.passwordMatch}</p>
             )}
 
-            <input
-              className="w-96 py-3 px-4 border-none outline-blue-500 bg-[#eee] text-black rounded-md"
-              type="text"
-              name="lastName"
-              placeholder="Last Name"
-              value={formData.lastName}
-              onChange={handleChange}
-            />
-            {error.lastName && <p className="text-red-400">{error.lastName}</p>}
-
-            <input
-              className="w-96 py-3 px-4 border-none outline-blue-500 bg-[#eee] text-black rounded-md"
-              type="number"
-              name="age"
-              placeholder="Age"
-              value={formData.age}
-              onChange={handleChange}
-            />
-            {error.age && <p className="text-red-400">{error.age}</p>}
-
-            <input
-              className="w-96 py-3 px-4 border-none outline-blue-500 bg-[#eee] text-black rounded-md"
-              type="text"
-              name="username"
-              placeholder="Username"
-              value={formData.username}
-              onChange={handleChange}
-            />
-            {error.username && <p className="text-red-400">{error.username}</p>}
-            <div className="w-96 flex flex-row justify-around items-center py-3">
-              <label className="flex flex-row justify-center items-center h-auto">
+            <div className="flex gap-10 items-center">
+              <label>
                 <input
-                  className="w-5"
                   type="radio"
                   name="admin-user"
                   value="true"
@@ -169,9 +237,8 @@ function AddUser() {
                 />
                 Admin
               </label>
-              <label className="flex flex-row justify-center items-center h-auto">
+              <label>
                 <input
-                  className="w-5"
                   type="radio"
                   name="admin-user"
                   value="false"
@@ -181,63 +248,20 @@ function AddUser() {
                 User
               </label>
             </div>
+
+            <button
+              type="submit"
+              className=" bg-blue-600 text-white hover:opacity-85 transition duration-200 py-3 px-4 border-none outline-blue-500 rounded-md"
+            >
+              Sign UP
+            </button>
+
+            {error.submit && (
+              <p className="text-red-400 pt-2 text-center">{error.submit}</p>
+            )}
           </div>
-
-          <div className="flex flex-col gap-3">
-            <input
-              className="w-96 py-3 px-4 border-none outline-blue-500 bg-[#eee] text-black rounded-md"
-              type="email"
-              name="email"
-              placeholder="Email"
-              value={formData.email}
-              onChange={handleChange}
-            />
-            {error.email && <p className="text-red-400">{error.email}</p>}
-
-            <PasswordInput
-              name="password"
-              placeholder="Password"
-              value={formData.password}
-              onChange={handleChange}
-            />
-            {error.password && (
-              <p className="text-red-400 w-96">{error.password}</p>
-            )}
-            {formData.password.length > 0 && (
-              <PasswordStrengthBar
-                className="w-96 -mt-1.5"
-                password={formData.password}
-              />
-            )}
-            <PasswordInput
-              name="confirmPassword"
-              placeholder="Confirm Password"
-              value={formData.confirmPassword}
-              onChange={handleChange}
-            />
-            {error.confirmPassword && (
-              <p className="text-red-400">{error.confirmPassword}</p>
-            )}
-            {error.passwordMatch && (
-              <p className="text-red-400">{error.passwordMatch}</p>
-            )}
-
-            <CountrySelect onChange={handleChange} name="country" />
-          </div>
-        </div>
-
-        <div>
-          <button
-            type="submit"
-            className="w-96 py-3 px-4 border-none bg-blue-600 text-white rounded-md hover:opacity-85 transition duration-200"
-          >
-            Sign UP
-          </button>
-        </div>
-      </form>
-      {error.submit && (
-        <p className="text-red-400 text-center">{error.submit}</p>
-      )}
+        </form>
+      </div>
     </div>
   );
 }
