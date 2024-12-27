@@ -2,7 +2,7 @@ import { Outlet } from "react-router-dom";
 
 const Section = () => {
   return (
-    <section className=" h-screen w-0 md:min-w-[calc(100%-16%)] ">
+    <section className="flex h-screen w-full flex-col px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
       <Outlet />
     </section>
   );

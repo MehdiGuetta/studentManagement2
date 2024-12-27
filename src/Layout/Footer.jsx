@@ -10,12 +10,6 @@ const Footer = () => {
   const { backgroundColor, textColor } = useDynamicTextColor();
   const currentYear = new Date().getFullYear();
   return (
-    // <footer
-    //   className="w-full flex justify-center items-center h-auto py-8"
-    //   style={{ color: textColor, backgroundColor: backgroundColor }}
-    // >
-    //   <div>Footer</div>
-    // </footer>
 
     <footer style={{ color: textColor, backgroundColor: backgroundColor }}>
       <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">

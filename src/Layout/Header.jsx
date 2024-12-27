@@ -19,7 +19,7 @@ const Header = () => {
         setIsToggleActive(false);
       }
     };
-    
+
     document.addEventListener("mousedown", clickOutside);
     return () => {
       document.removeEventListener("mousedown", clickOutside);
@@ -37,21 +37,21 @@ const Header = () => {
 
   return (
     <header
-      className="w-full h-auto flex justify-between items-center py-4 px-44"
+      className="w-full h-auto flex justify-between items-center py-4 px-4 sm:px-8 md:px-16 lg:px-44"
       style={{ color: textColor, backgroundColor: backgroundColor }}
     >
       <div>
         <img src={logo} className="w-24 select-none" />
       </div>
-      <div className="flex justify-center items-center gap-12">
+      <div className="flex justify-center items-center gap-12 md:gap-16 lg:gap-20">
         <div>
           <div className="pr-20">
             <img
               id="avatarButton"
               type="button"
               data-dropdown-toggle="userDropdown"
-              data-dropdown-placement="bottom-start"  
-              className="w-20 h-20 rounded-full cursor-pointer"
+              data-dropdown-placement="bottom-start"
+              className="w-16 h-16 md:w-20 md:h-20 rounded-full cursor-pointer"
               src={user.photo}
               alt="User dropdown"
               onClick={handleToggle}
@@ -68,16 +68,16 @@ const Header = () => {
                     <div>
                       {user.prenom} {user.nom}
                     </div>
-                    <div className="font-medium truncate mb-1 ">
+                    <div className="font-medium truncate mb-1">
                       {user.email}
                     </div>
                   </div>
                   {user.admin === true ? (
-                    <span className="-green-100 text-green-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">
+                    <span className="bg-green-100 text-green-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">
                       Admin
                     </span>
                   ) : (
-                    <span className="-blue-100 text-blue-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">
+                    <span className="bg-blue-100 text-blue-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">
                       User
                     </span>
                   )}

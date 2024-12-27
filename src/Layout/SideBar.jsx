@@ -42,12 +42,13 @@ const SideBar = () => {
       icon: faIdCardClip,
     },
   ];
+
   return (
     <aside
-      className="pt-10 h-screen w-0 md:min-w-[15%]"
+      className="text-nowrap pt-10 h-screen w-40 px-2 md:w-48 lg:w-60 xl:w-64 transition-all ease-in-out"
       style={{ color: textColor, backgroundColor: backgroundColor }}
     >
-      <ul className="flex-column space-y space-y-4 text-sm font-medium text-gray-500 dark:text-gray-400 md:me-4 mb-4 md:mb-0 ml-4 md:ml-3 ">
+      <ul className="space-y-2 text-sm font-medium text-gray-500 dark:text-gray-400">
         {links.map(({ path, label, icon }) => (
           <li key={path} className="list-none">
             <NavLink
