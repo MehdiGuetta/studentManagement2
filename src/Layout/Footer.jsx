@@ -15,7 +15,7 @@ const Footer = () => {
       <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
         <div className="sm:flex sm:items-center sm:justify-between">
           <span
-            className="text-sm  sm:text-center"
+            className="text-sm sm:text-center"
             style={{ color: textColor }}
           >
             © {currentYear} <span className="hover:underline">Team™</span>. All

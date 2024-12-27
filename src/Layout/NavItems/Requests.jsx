@@ -15,7 +15,7 @@ export default function Requests() {
         <button
           type="button"
           onClick={() => handleToggle(1)}
-          className="flex items-center justify-between w-[95%] p-5 font-medium rtl:text-right rounded-t-xl border-2 border-gray-300 gap-3"
+          className="flex items-center justify-between bg-white w-[95%] p-5 font-medium rtl:text-right rounded-t-xl border-2 border-gray-300 gap-3"
           aria-expanded={activeToggle === 1}
           aria-controls="accordion-collapse-body-1"
         >
@@ -44,7 +44,7 @@ export default function Requests() {
         <button
           type="button"
           onClick={() => handleToggle(2)}
-          className="flex items-center justify-between w-[95%] p-5 font-medium rtl:text-right border-2 border-gray-300 gap-3"
+          className="flex items-center justify-between bg-white w-[95%] p-5 font-medium rtl:text-right border-2 border-gray-300 gap-3"
           aria-expanded={activeToggle === 2}
           aria-controls="accordion-collapse-body-2"
         >
@@ -73,7 +73,7 @@ export default function Requests() {
         <button
           type="button"
           onClick={() => handleToggle(3)}
-          className="flex items-center justify-between w-[95%] p-5 font-medium rtl:text-right border-2 border-gray-300 gap-3"
+          className="flex items-center justify-between bg-white w-[95%] p-5 font-medium rtl:text-right border-2 border-gray-300 gap-3"
           aria-expanded={activeToggle === 3}
           aria-controls="accordion-collapse-body-3"
         >

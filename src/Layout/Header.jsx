@@ -37,7 +37,7 @@ const Header = () => {
 
   return (
     <header
-      className="w-full h-auto flex justify-between items-center py-4 px-4 sm:px-8 md:px-16 lg:px-44"
+      className="w-full h-auto flex justify-around items-center py-4 px-4 sm:px-8 md:px-16 lg:px-44"
       style={{ color: textColor, backgroundColor: backgroundColor }}
     >
       <div>
@@ -45,7 +45,7 @@ const Header = () => {
       </div>
       <div className="flex justify-center items-center gap-12 md:gap-16 lg:gap-20">
         <div>
-          <div className="pr-20">
+          <div >
             <img
               id="avatarButton"
               type="button"
