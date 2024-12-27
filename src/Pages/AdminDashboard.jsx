@@ -27,14 +27,12 @@ const AdminDashboard = () => {
   }
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-gray-100">
       <Header />
       <NavigationBar />
-      <main className="flex-1">
-        <div className="flex justify-between">
-          <SideBar />
-          <Section />
-        </div>
+      <main className="flex-1 flex lg:flex-row">
+        <SideBar />
+        <Section />
       </main>
       <Footer />
     </div>
