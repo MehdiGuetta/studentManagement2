@@ -1,19 +1,29 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import DeleteUserButton from "../../Components/DeleteUserButton";
 
 export default function UserList() {
   const [users, setUsers] = useState([]);
+  console.log("users from usestate", users);
 
   useEffect(() => {
-    axios
-      .get("https://676187c546efb37323720b38.mockapi.io/stagiaires")
-      .then((res) => {
-        setUsers(res.data); // Update the state with the fetched users
-      })
-      .catch((error) => {
+    const fetchUsers = async () => {
+      try {
+        const response = await axios.get(
+          "https://676187c546efb37323720b38.mockapi.io/stagiaires"
+        );
+        setUsers(response.data);
+      } catch (error) {
         console.error("Error fetching users:", error);
-      });
+      }
+    };
+    fetchUsers();
   }, []);
+
+  const handleUserDeleted = (userId) => {
+    setUsers(users.filter((user) => user.id !== userId));
+    console.log("User deleted with id:", userId);
+  };
 
   return (
     <div className="w-full bg-white border-b-2 rounded-bl-xl rounded-br-xl shadow shadow-gray-200 mb-10">
@@ -59,13 +69,15 @@ export default function UserList() {
                 </td>
                 <th
                   scope="row"
-                   className="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-black"
+                  className="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-black"
                 >
                   <div>
                     <div className="text-base font-semibold text-start">
                       {user.prenom} {user.nom}
                     </div>
-                    <div className="font-normal text-gray-500 text-start">{user.pseudo}</div>
+                    <div className="font-normal text-gray-500 text-start">
+                      {user.pseudo}
+                    </div>
                   </div>
                 </th>
                 <td className="px-6 py-4 font-semibold">{user.Pays}</td>
@@ -81,20 +93,17 @@ export default function UserList() {
                   )}
                 </td>
                 <td className="px-6 py-4 font-semibold">{user.email}</td>
-                <td className="px-6 py-4 font-semibold">{user.age} years old</td>
+                <td className="px-6 py-4 font-semibold">
+                  {user.age} years old
+                </td>
                 <td className="px-6 py-4 space-x-2">
-                  <a
-                    href="#"
-                    className="text-white bg-blue-600 hover:bg-blue-700 font-medium rounded-lg text-sm px-4 py-2"
-                  >
+                  <a className="text-white bg-blue-600 hover:bg-blue-700 font-medium rounded-lg text-sm px-4 py-2">
                     Edit
                   </a>
-                  <a
-                    href="#"
-                    className="text-white bg-red-600 hover:bg-red-700 font-medium rounded-lg text-sm px-4 py-2"
-                  >
-                    Delete
-                  </a>
+                  <DeleteUserButton
+                    userId={user.id}
+                    onUserDeleted={handleUserDeleted}
+                  />
                 </td>
               </tr>
             ))}
