@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import DeleteUserButton from "../../Components/DeleteUserButton";
+import EditUserButton from "../../Components/EditUserButton";
 
 export default function UserList() {
   const [users, setUsers] = useState([]);
@@ -19,6 +20,11 @@ export default function UserList() {
     };
     fetchUsers();
   }, []);
+  const handleUserEdit = (updatedUser) => {
+    setUsers((prevUsers) =>
+      prevUsers.map((user) => (user.id === updatedUser.id ? updatedUser : user))
+    );
+  };
 
   const handleUserDeleted = (userId) => {
     setUsers(users.filter((user) => user.id !== userId));
@@ -97,9 +103,10 @@ export default function UserList() {
                   {user.age} years old
                 </td>
                 <td className="px-6 py-4 space-x-2">
-                  <a className="text-white bg-blue-600 hover:bg-blue-700 font-medium rounded-lg text-sm px-4 py-2">
-                    Edit
-                  </a>
+                  <EditUserButton
+                    userId={user.id}
+                    onUserEdit={handleUserEdit}
+                  />
                   <DeleteUserButton
                     userId={user.id}
                     onUserDeleted={handleUserDeleted}
