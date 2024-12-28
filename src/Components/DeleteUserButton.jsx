@@ -9,7 +9,6 @@ const DeleteUserButton = ({ userId, onUserDeleted }) => {
         `https://676187c546efb37323720b38.mockapi.io/stagiaires/${userId}`
       );
       if (response.status === 200) {
-        console.log("User deleted successfully");
         onUserDeleted(userId);
         setIsPopupOpen(false);
       }
