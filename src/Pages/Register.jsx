@@ -208,6 +208,7 @@ function RegistrationForm() {
           )}
 
           <CountrySelect onChange={handleChange} name="country" />
+          
           <div className="w-96 flex flex-row justify-around items-center py-3">
             <label className="flex flex-row justify-center items-center h-auto">
               <input
