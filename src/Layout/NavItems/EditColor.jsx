@@ -18,7 +18,7 @@ const EditColor = () => {
   const handleApply = () => {
     axios
       .put(
-        `https://676187c546efb37323720b38.mockapi.io/stagiaires//${user.id}`,
+        `https://676187c546efb37323720b38.mockapi.io/stagiaires/${user.id}`,
         {
           ...user,
           couleur: color,
