@@ -4,6 +4,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
+import useDynamicTextColor from "../../Components/useDynamicTextColor";
 
 export default function Requests() {
   const user = useSelector((state) => state.user);
@@ -12,6 +13,7 @@ export default function Requests() {
   const [description, setDescription] = useState("");
   const requestId = "ID" + new Date().getTime();
   const dispatch = useDispatch();
+  const { backgroundColor, textColor } = useDynamicTextColor();
 
   const handleToggle = (section) => {
     setActiveToggle(activeToggle === section ? null : section);
@@ -155,7 +157,7 @@ export default function Requests() {
           </div>
         </div>
       ) : (
-        <form className="max-w-md mx-auto my-10 bg-white p-10 h-quto">
+        <form className="max-w-md mx-auto my-10 bg-white p-10 h-quto w-full">
           <legend className="text-3xl font-semibold mb-5">Request form</legend>
           <div className="relative z-0 w-full mb-5 group pb-8">
             <input
@@ -163,7 +165,7 @@ export default function Requests() {
               type="text"
               name="title"
               id="title"
-              className="block py-2.5 px-0 w-96 text-lg text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+              className="block py-2.5 px-0 w-full text-lg text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
               required
             />
@@ -179,7 +181,7 @@ export default function Requests() {
               onChange={handleChange}
               name="description"
               id="description"
-              className="block py-2.5 px-0 w-96 text-lg text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+              className="block pt-3 px-0 w-full text-lg text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
               required
             />
@@ -193,7 +195,12 @@ export default function Requests() {
           <button
             onClick={handleApply}
             type="button"
-            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+            className="w-full text-white focus:ring-4 hover:opacity-80 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 focus:outline-none "
+            style={{
+              color: textColor,
+              backgroundColor: backgroundColor,
+              border: `1px solid ${textColor}`,
+            }}
           >
             Apply Form
           </button>
