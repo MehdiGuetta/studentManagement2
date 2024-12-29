@@ -35,10 +35,6 @@ const Header = () => {
     navigate("/");
   };
 
-  const handleRequestBtn = () => {
-    navigate("requests");
-  };
-
   return (
     <header
       className="w-full h-auto flex justify-around items-center py-4 px-4 sm:px-8 md:px-16 lg:px-44"
@@ -90,7 +86,7 @@ const Header = () => {
                 {!user.admin && (
                   <>
                     <div
-                      onClick={handleRequestBtn}
+                      onClick={() => navigate("requests")}
                       role="button"
                       className="block px-4 py-2 w-full text-start text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                     >
@@ -98,6 +94,7 @@ const Header = () => {
                     </div>
                     <div
                       role="button"
+                      onClick={() => navigate("see-requests")}
                       className="block px-4 py-2 w-full text-start text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                     >
                       See my requests
