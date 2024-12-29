@@ -37,11 +37,9 @@ const Auth = () => {
 
       if (matchedUser) {
         if (matchedUser.admin) {
-          // If the user is an admin
           dispatch(login(matchedUser));
           navigate("/admin-dashboard");
         } else {
-          // If the user is not an admin
           dispatch(login(matchedUser));
           navigate("/user-dashboard");
         }

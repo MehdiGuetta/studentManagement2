@@ -1,14 +1,14 @@
 // action.jsx
 export const login = (user) => ({
-    type: 'LOGIN',
-    payload: user
+  type: "LOGIN",
+  payload: user,
 });
 
 export const logout = () => ({
-    type: 'LOGOUT'
+  type: "LOGOUT",
 });
 
 export const updateColor = (color) => ({
-    type: 'UPDATE_COLOR',
-    payload: color
+  type: "UPDATE_COLOR",
+  payload: color,
 });
