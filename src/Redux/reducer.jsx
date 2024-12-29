@@ -2,6 +2,7 @@
 const initialState = {
   user: null,
   color: "",
+  request: [],
 };
 
 const userReducer = (state = initialState, action) => {
@@ -15,7 +16,14 @@ const userReducer = (state = initialState, action) => {
     case "UPDATE_COLOR":
       return {
         ...state,
-       color: action.payload,
+        color: action.payload,
+      };
+    case "ADD_REQUEST":
+      return {
+        user: {
+          ...state.user,
+          requests: [...state.user.requests, action.payload],
+        },
       };
     default:
       return state;
