@@ -35,6 +35,10 @@ const Header = () => {
     navigate("/");
   };
 
+  const handleRequestBtn = () => {
+    navigate("requests");
+  };
+
   return (
     <header
       className="w-full h-auto flex justify-around items-center py-4 px-4 sm:px-8 md:px-16 lg:px-44"
@@ -45,7 +49,7 @@ const Header = () => {
       </div>
       <div className="flex justify-center items-center gap-12 md:gap-16 lg:gap-20">
         <div>
-          <div >
+          <div>
             <img
               id="avatarButton"
               type="button"
@@ -82,6 +86,24 @@ const Header = () => {
                     </span>
                   )}
                 </div>
+
+                {!user.admin && (
+                  <>
+                    <div
+                      onClick={handleRequestBtn}
+                      role="button"
+                      className="block px-4 py-2 w-full text-start text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                    >
+                      Request
+                    </div>
+                    <div
+                      role="button"
+                      className="block px-4 py-2 w-full text-start text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                    >
+                      See my requests
+                    </div>
+                  </>
+                )}
 
                 <div className="py-1">
                   <button
