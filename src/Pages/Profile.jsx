@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
   const user = useSelector((state) => state.user);
-  const color = user.couleur // color in API
+  const color = user.couleur;
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
