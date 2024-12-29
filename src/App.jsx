@@ -28,6 +28,7 @@ const App = () => {
           <Route path="profile" element={<Profile />} />
           <Route path="edit-color" element={<EditColor />} />
           <Route path="requests" element={<Requests />} />
+          <Route path="see-requests" element={<Requests />} />
         </Route>
         <Route path="/admin-dashboard" element={<AdminDashboard />}>
           <Route index element={<Navigate to="home" />} />
