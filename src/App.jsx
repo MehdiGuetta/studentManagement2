@@ -13,6 +13,7 @@ import EditColor from "./Layout/NavItems/EditColor";
 import UserList from "./Layout/NavItems/UserList";
 import AddUser from "./Layout/NavItems/AddUser";
 import Requests from "./Layout/NavItems/Requests";
+import SeeRequests from "./Layout/NavItems/SeeRequests";
 import UserDashboard from "./Pages/UserDashboard";
 import Profile from "./Layout/NavItems/Profile";
 
@@ -28,7 +29,7 @@ const App = () => {
           <Route path="profile" element={<Profile />} />
           <Route path="edit-color" element={<EditColor />} />
           <Route path="requests" element={<Requests />} />
-          <Route path="see-requests" element={<Requests />} />
+          <Route path="see-requests" element={<SeeRequests />} />
         </Route>
         <Route path="/admin-dashboard" element={<AdminDashboard />}>
           <Route index element={<Navigate to="home" />} />
