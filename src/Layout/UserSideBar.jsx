@@ -18,7 +18,7 @@ const UserSideBar = () => {
   ];
   return (
     <aside
-      className="text-nowrap pt-10 h-screen w-40 px-2 md:w-48 lg:w-60 xl:w-64 transition-all ease-in-out"
+      className="text-nowrap pt-10 h-screen w-40 px-2 md:w-48 lg:w-60 xl:w-64 transition-all ease-in-out bg-gray-200 p-4"
       style={{ color: textColor, backgroundColor: backgroundColor }}
     >
       <ul className="space-y-2 text-sm font-medium text-gray-500 dark:text-gray-400">
