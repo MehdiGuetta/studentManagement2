@@ -51,7 +51,7 @@ const SeeRequests = () => {
               <p className="inline-flex justify-start w-full px-10 text-lg break-all">
                 {description}
               </p>
-              <hr className="w-full h-px my-8 bg-black border-0" />
+              <hr className="w-full h-px my-2 bg-black border-0" />
             </div>
           ))}
         </div>
