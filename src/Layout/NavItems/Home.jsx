@@ -16,10 +16,9 @@ const HomePage = () => {
             backgroundColor: backgroundColor,
           }}
         >
-          <div className="absolute inset-0 bg-black opacity-20"></div>
           <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
             <h1
-              className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl pb-10"
+              className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl pb-10 text-center"
               style={{ color: textColor }}
             >
               Welcome back, {user.prenom} {user.nom}!

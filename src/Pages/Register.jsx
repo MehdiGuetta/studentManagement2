@@ -26,13 +26,15 @@ function RegistrationForm() {
     country: "",
     password: "",
     confirmPassword: "",
-    admin: true,
+    admin: false,
     age: "",
     photo: "https://loremflickr.com/640/480",
   });
 
+  console.log(formData.admin);
+
   const handleChange = (e) => {
-    const { name, value, type } = e.target;
+    const { name, value, type, checked } = e.target;
 
     if (name === "age") {
       if ((value > 0 && value <= 100) || value === "") {
@@ -41,12 +43,15 @@ function RegistrationForm() {
           [name]: value,
         });
       }
-    } else if (name === "admin-user") {
-      setFormData({ ...formData, admin: value === "true" });
+    } else if (type === "radio") {
+      setFormData({
+        ...formData,
+        admin: checked ? value === "true" : formData.admin,
+      });
     } else {
       setFormData({
         ...formData,
-        [name]: type === "checkbox" ? e.target.checked : value,
+        [name]: value,
       });
     }
   };
@@ -118,7 +123,6 @@ function RegistrationForm() {
         }));
       });
   };
-
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-100 to-indigo-100 flex items-center justify-center p-4">
@@ -246,13 +250,14 @@ function RegistrationForm() {
                 className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               />
             </div>
+
             <div className="flex justify-around items-center py-3">
               <label className="flex items-center space-x-2 cursor-pointer">
                 <input
                   type="radio"
-                  name="admin"
-                  value="true"
-                  checked={formData.admin === "true"}
+                  name="role"
+                  value={true}
+                  checked={formData.admin === true}
                   onChange={handleChange}
                   className="hidden peer"
                 />
@@ -263,9 +268,9 @@ function RegistrationForm() {
               <label className="flex items-center space-x-2 cursor-pointer">
                 <input
                   type="radio"
-                  name="admin"
-                  value="false"
-                  checked={formData.admin === "false"}
+                  name="role"
+                  value={false}
+                  checked={formData.admin === false}
                   onChange={handleChange}
                   className="hidden peer"
                 />
@@ -286,6 +291,18 @@ function RegistrationForm() {
         {error.submit && (
           <p className="text-red-500 text-center pb-4">{error.submit}</p>
         )}
+        <p className=" text-center text-[14px] pb-5">
+          Already have an account?
+          <span>
+            {" "}
+            <a
+              onClick={() => navigate("/")}
+              className="text-blue-600 font-semibold cursor-pointer hover:underline underline-offset-[3px]"
+            >
+              Log in
+            </a>
+          </span>
+        </p>
       </div>
     </div>
   );

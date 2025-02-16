@@ -31,6 +31,7 @@ const EditColor = () => {
       );
       dispatch(updateColor(color));
       setShowSuccess(true);
+      localStorage.setItem("color", color);
     } catch (err) {
       console.error("Error from API:", err);
     } finally {
@@ -50,7 +51,6 @@ const EditColor = () => {
   return (
     <div className="w-full max-w-md mx-auto pt-5">
       <div className="bg-white rounded-2xl shadow-xl overflow-hidden transform  transition-all duration-300">
-        {/* Header */}
         <div
           className="p-6 relative overflow-hidden"
           style={{ backgroundColor: backgroundColor }}
@@ -73,7 +73,6 @@ const EditColor = () => {
           </div>
         </div>
 
-        {/* Color Picker Section */}
         <div className="p-6 space-y-6">
           <div className="flex justify-center">
             <div className="p-4 bg-gray-50 rounded-2xl">
@@ -81,7 +80,6 @@ const EditColor = () => {
             </div>
           </div>
 
-          {/* Preview Section */}
           <div className="space-y-4">
             <h3 className="text-gray-600 font-medium text-sm text-center">
               Preview
