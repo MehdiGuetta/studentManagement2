@@ -58,7 +58,7 @@ const SideBar = () => {
 
   return (
     <aside
-      className=" h-[calc(100vh-80px)] transition-all duration-300 ease-in-out"
+      className="hidden sm:block h-[calc(100vh-80px)] transition-all duration-300 ease-in-out"
       style={{
         backgroundColor: `${backgroundColor}DD`,
         backdropFilter: "blur(8px)",

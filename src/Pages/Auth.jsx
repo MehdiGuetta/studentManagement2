@@ -45,8 +45,14 @@ const Auth = () => {
 
       if (matchedUser) {
         dispatch(login(matchedUser));
-        localStorage.setItem("connectedUser", JSON.stringify(matchedUser)); // Save user
-        navigate(matchedUser.admin ? "/admin-dashboard" : "/user-dashboard");
+        localStorage.setItem("connectedUser", JSON.stringify(matchedUser));
+        if (matchedUser.admin === true) {
+          dispatch(login(matchedUser));
+          navigate("/admin-dashboard/home");
+        } else {
+          dispatch(login(matchedUser));
+          navigate("/user-dashboard/home");
+        }
       } else {
         setError("Invalid username or password");
         setCounter((prev) => prev + 1);
