@@ -151,6 +151,18 @@ const Auth = () => {
             </button>
           )}
           {error && <p className="text-red-500 text-center text-sm">{error}</p>}
+          <p className=" text-center text-[14px]">
+            Not registered?
+            <span>
+              {" "}
+              <a
+                onClick={() => navigate("register")}
+                className="text-blue-600 font-semibold cursor-pointer hover:underline underline-offset-[3px]"
+              >
+                Create an Account
+              </a>
+            </span>
+          </p>
         </form>
       </div>
     </div>
