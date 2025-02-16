@@ -1,6 +1,6 @@
 // reducer.jsx
 const initialState = {
-  user: null,
+  user: JSON.parse(localStorage.getItem("connectedUser")) || null,
   color: "",
   request: [],
 };
@@ -12,7 +12,8 @@ const userReducer = (state = initialState, action) => {
         user: action.payload,
       };
     case "LOGOUT":
-      return initialState;
+      localStorage.removeItem("connectedUser"); // Remove user on logout
+      return { ...state, user: null };
     case "UPDATE_COLOR":
       return {
         ...state,

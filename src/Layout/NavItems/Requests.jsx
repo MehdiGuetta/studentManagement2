@@ -1,26 +1,24 @@
-import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useState } from 'react';
 import axios from "axios";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import useDynamicTextColor from "../../Components/useDynamicTextColor";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import { ChevronDown, ChevronUp, Clock, CheckCircle2, XCircle, FileText, Calendar, AlignLeft } from 'lucide-react';
 
 export default function Requests() {
-  const [activeToggle, setActiveToggle] = useState(null); // state for active toggle
-  const { backgroundColor, textColor } = useDynamicTextColor(); // custom hook for dynamic text color
-  const user = useSelector((state) => state.user); // get user data from redux store
-  const [title, setTitle] = useState(""); // state for title input
-  const [description, setDescription] = useState(""); // state for description input
-  const [reqList, setReqList] = useState([]); // state for requests list from api
-  const [userList, setUserList] = useState([]); // state for requests list from api
+  const [activeToggle, setActiveToggle] = useState(null);
+  const { backgroundColor, textColor } = useDynamicTextColor();
+  const user = useSelector((state) => state.user);
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [reqList, setReqList] = useState([]);
+  const [userList, setUserList] = useState([]);
   const [updatedRequest, setUpdatedRequest] = useState(null);
-  const [error, setError] = useState(""); // state for error message
-  const navigate = useNavigate(); // navigate function from react-router-dom
-  const dispatch = useDispatch(); // dispatch function from react-redux
-  const requestId = "ID" + new Date().getTime(); // generate unique request id
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const requestId = "ID" + new Date().getTime();
 
   useEffect(() => {
     axios
@@ -49,7 +47,6 @@ export default function Requests() {
     }
   };
 
-  // function for applying the user request
   const handleApply = async (e) => {
     e.preventDefault();
 
@@ -80,9 +77,7 @@ export default function Requests() {
         { ...user, requests: [...user.requests, newRequest] }
       );
       dispatch({ type: "ADD_REQUEST", payload: newRequest });
-      console.log("Request added successfully!");
       navigate("../see-requests");
-
       setTitle("");
       setDescription("");
     } catch (error) {
@@ -104,8 +99,8 @@ export default function Requests() {
       return user;
     });
 
-    setUserList(updatedUserList); // Update the user list
-    setReqList(updatedUserList.flatMap((user) => user.requests)); // Update the request list
+    setUserList(updatedUserList);
+    setReqList(updatedUserList.flatMap((user) => user.requests));
     const updatedUser = updatedUserList.find((user) => user.id === idUser);
     setUpdatedRequest({ idUser, updatedUser });
   };
@@ -124,12 +119,12 @@ export default function Requests() {
       return user;
     });
 
-    setUserList(updatedUserList); // Update the user list
-    setReqList(updatedUserList.flatMap((user) => user.requests)); // Update the request list
+    setUserList(updatedUserList);
+    setReqList(updatedUserList.flatMap((user) => user.requests));
     const updatedUser = updatedUserList.find((user) => user.id === idUser);
     setUpdatedRequest({ idUser, updatedUser });
   };
-  // useEffect to handle request status update
+
   useEffect(() => {
     const updateRequestStatus = async () => {
       if (!updatedRequest) return;
@@ -140,10 +135,8 @@ export default function Requests() {
           `https://676187c546efb37323720b38.mockapi.io/stagiaires/${idUser}`,
           { ...updatedUser }
         );
-        console.log("Request status updated successfully!");
       } catch (error) {
         if (error.response && error.response.status === 429) {
-          console.error("Too many requests, retrying...");
           setTimeout(() => setUpdatedRequest(updatedRequest), 3000);
         } else {
           console.error("Error updating request status:", error);
@@ -154,295 +147,187 @@ export default function Requests() {
     updateRequestStatus();
   }, [updatedRequest]);
 
-  return (
-    <>
-      {user.admin ? (
-        <div id="accordion-collapse" className="px-10 mt-10">
-          <h2 id="accordion-collapse-heading-1">
-            <button
-              type="submit"
-              onClick={() => handleToggle(1)}
-              className="flex items-center justify-between bg-white w-[95%] p-5 font-medium rtl:text-right rounded-t-xl border-2 border-gray-300 gap-3"
-              aria-expanded={activeToggle === 1}
-              aria-controls="accordion-collapse-body-1"
-            >
-              <span className="bg-yellow-100 text-yellow-700 text-lg font-medium me-2 px-2.5 py-0.5 rounded">
-                Under review
-              </span>
-              {activeToggle === 1 ? (
-                <FontAwesomeIcon icon={faChevronUp} />
-              ) : (
-                <FontAwesomeIcon icon={faChevronDown} />
-              )}
-            </button>
-          </h2>
-          <div
-            id="accordion-collapse-body-1"
-            className="overflow-hidden w-[95%] transition-[max-height] duration-300 ease-in-out bg-white border-x-2 border-gray-300"
-            style={{ maxHeight: activeToggle === 1 ? "1000px" : "0" }}
-            aria-labelledby="accordion-collapse-heading-1"
-          >
-            <div className="px-5 pt-5 border border-b-0 border-gray-200">
-              <p className=" text-black">
-                {reqList.map((res) => {
-                  if (res.status === "pending") {
-                    return (
-                      <>
-                        <div className="flex flex-col" key={res.requestID}>
-                          <div className="flex flex-col font-semibold text-xl gap-2 pt-5">
-                            <p>
-                              Title:{" "}
-                              <span className="font-medium text-base">
-                                {" "}
-                                {res.title}
-                              </span>
-                            </p>
-                            <p>
-                              Date:{" "}
-                              <span className="font-medium text-base break-words">
-                                {res.date}
-                              </span>
-                            </p>
-                            <p>
-                              Description:{" "}
-                              <span className="font-medium text-base break-words">
-                                {res.description}
-                              </span>
-                            </p>
-                            <div>
-                              <button
-                                onClick={() =>
-                                  handleAcceptButton(res.requestID, res.id_user)
-                                }
-                                type="button"
-                                className="text-white bg-green-600 hover:bg-green-700 focus:outline-none font-medium rounded-md text-sm px-5 py-2.5 text-center me-2 mb-2"
-                              >
-                                Accept
-                              </button>
-                              <button
-                                onClick={() =>
-                                  handleRejectButton(res.requestID, res.id_user)
-                                }
-                                type="button"
-                                className="text-white bg-red-600 hover:bg-red-700 focus:outline-none font-medium rounded-md text-sm px-5 py-2.5 text-center me-2 mb-2 "
-                              >
-                                Reject
-                              </button>
-                            </div>
-                          </div>
-
-                          <hr className="w-full h-px mt-3 bg-gray-300 border-0" />
-                        </div>
-                      </>
-                    );
-                  }
-                })}
-              </p>
-            </div>
-          </div>
-
-          <h2 id="accordion-collapse-heading-2">
-            <button
-              type="button"
-              onClick={() => handleToggle(2)}
-              className="flex items-center justify-between bg-white w-[95%] p-5 font-medium rtl:text-right border-2 border-gray-300 gap-3"
-              aria-expanded={activeToggle === 2}
-              aria-controls="accordion-collapse-body-2"
-            >
-              <span className="bg-green-100 text-green-700 text-lg font-medium me-2 px-2.5 py-0.5 rounded">
-                Accepted
-              </span>
-              {activeToggle === 2 ? (
-                <FontAwesomeIcon icon={faChevronUp} />
-              ) : (
-                <FontAwesomeIcon icon={faChevronDown} />
-              )}
-            </button>
-          </h2>
-          <div
-            id="accordion-collapse-body-2"
-            className="overflow-hidden w-[95%] transition-[max-height] duration-300 ease-in-out bg-white border-x-2 border-gray-300"
-            style={{ maxHeight: activeToggle === 2 ? "1000px" : "0" }}
-            aria-labelledby="accordion-collapse-heading-2"
-          >
-            <div className="p-5 border border-b-0 border-gray-200">
-              <p className="mb-2 text-black">
-                {reqList.map((res) => {
-                  if (res.status === "accepted") {
-                    return (
-                      <>
-                        <div className="flex flex-col" key={res.requestID}>
-                          <div className="flex flex-col font-semibold text-xl gap-2 pt-5">
-                            <p>
-                              Title:{" "}
-                              <span className="font-medium text-base">
-                                {" "}
-                                {res.title}
-                              </span>
-                            </p>
-                            <p>
-                              Date:{" "}
-                              <span className="font-medium text-base break-words">
-                                {res.date}
-                              </span>
-                            </p>
-                            <p>
-                              Description:{" "}
-                              <span className="font-medium text-base break-words">
-                                {res.description}
-                              </span>
-                            </p>
-                            <div className="">
-                              <button
-                                onClick={() =>
-                                  handleRejectButton(res.requestID, res.id_user)
-                                }
-                                type="button"
-                                className="text-white bg-red-700 hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-md text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
-                              >
-                                Reject
-                              </button>
-                            </div>
-                          </div>
-
-                          <hr className="w-full h-px my-3 bg-gray-300 border-0" />
-                        </div>
-                      </>
-                    );
-                  }
-                })}
-              </p>
-            </div>
-          </div>
-
-          <h2 id="accordion-collapse-heading-3">
-            <button
-              type="button"
-              onClick={() => handleToggle(3)}
-              className="flex items-center justify-between bg-white w-[95%] p-5 font-medium rtl:text-right border-2 border-gray-300 gap-3"
-              aria-expanded={activeToggle === 3}
-              aria-controls="accordion-collapse-body-3"
-            >
-              <span className="bg-red-100 text-red-700 text-lg font-medium me-2 px-2.5 py-0.5 rounded">
-                Rejected
-              </span>
-              {activeToggle === 3 ? (
-                <FontAwesomeIcon icon={faChevronUp} />
-              ) : (
-                <FontAwesomeIcon icon={faChevronDown} />
-              )}
-            </button>
-          </h2>
-          <div
-            id="accordion-collapse-body-3"
-            className="overflow-hidden w-[95%] transition-[max-height] duration-300 ease-in-out bg-white border-x-2 border-gray-300"
-            style={{ maxHeight: activeToggle === 3 ? "1000px" : "0" }}
-            aria-labelledby="accordion-collapse-heading-3"
-          >
-            <div className="px-5 pt-5 border border-b-0 border-gray-200">
-              <p className=" text-black">
-                {reqList.map((res) => {
-                  if (res.status === "rejected") {
-                    return (
-                      <>
-                        <div className="flex flex-col" key={res.requestID}>
-                          <div className="flex flex-col font-semibold text-xl gap-2 pt-5">
-                            <p>
-                              Title:{" "}
-                              <span className="font-medium text-base">
-                                {" "}
-                                {res.title}
-                              </span>
-                            </p>
-                            <p>
-                              Date:{" "}
-                              <span className="font-medium text-base break-words">
-                                {res.date}
-                              </span>
-                            </p>
-                            <p>
-                              Description:{" "}
-                              <span className="font-medium text-base break-words">
-                                {res.description}
-                              </span>
-                            </p>
-                            <div>
-                              <button
-                                onClick={() =>
-                                  handleAcceptButton(res.requestID, res.id_user)
-                                }
-                                type="button"
-                                className="text-white bg-green-600 hover:bg-green-700 focus:outline-none font-medium rounded-md text-sm px-5 py-2.5 text-center me-2 mb-2"
-                              >
-                                Accept
-                              </button>
-                            </div>
-                          </div>
-
-                          <hr className="w-full h-px mt-3 bg-gray-300 border-0" />
-                        </div>
-                      </>
-                    );
-                  }
-                })}
-              </p>
+  const RequestCard = ({ request, onAccept, onReject, showAccept = true, showReject = true }) => (
+    <div className="bg-white rounded-xl shadow-sm p-6 mb-4 transition-all duration-200 hover:shadow-md border border-gray-100">
+      <div className="flex flex-col gap-4">
+        <div className="flex items-start justify-between">
+          <div className="flex items-start gap-3">
+            <FileText className="text-gray-400 mt-1" size={20} />
+            <div>
+              <h3 className="text-xl font-semibold text-gray-800 leading-tight">{request.title}</h3>
+              <div className="flex items-center gap-2 mt-2 text-gray-500">
+                <Calendar size={14} />
+                <span className="text-sm">{request.date}</span>
+              </div>
             </div>
           </div>
         </div>
-      ) : (
-        <form className="max-w-md mx-auto my-10 bg-white p-10 h-quto w-full">
-          <legend className="text-3xl font-semibold mb-5">Request form</legend>
-          <div className="relative z-0 w-full mb-5 group pb-8">
-            <input
-              onChange={handleChange}
-              type="text"
-              name="title"
-              id="title"
-              className="block py-2.5 px-0 w-full text-lg text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-              placeholder=" "
-              required
-            />
-            <label
-              htmlFor="title"
-              className="peer-focus:font-medium absolute text-lg text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto  peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+        <div className="flex items-start gap-3 pl-9">
+          <AlignLeft className="text-gray-400 mt-1" size={16} />
+          <p className="text-gray-600 leading-relaxed">{request.description}</p>
+        </div>
+        <div className="flex gap-3 mt-2 pl-9">
+          {showAccept && (
+            <button
+              onClick={() => onAccept(request.requestID, request.id_user)}
+              className="flex items-center gap-2 px-4 py-2 bg-green-50 text-green-600 rounded-lg hover:bg-green-100 transition-colors duration-200 font-medium"
             >
-              Object
-            </label>
-          </div>
-          <div className="relative z-0 w-full mb-5 group">
-            <textarea
-              onChange={handleChange}
-              name="description"
-              id="description"
-              className="block pt-3 px-0 w-full text-lg text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-              placeholder=" "
-              required
-            />
-
-            <label
-              htmlFor="description"
-              className="peer-focus:font-medium absolute text-lg text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+              <CheckCircle2 size={18} />
+              Accept
+            </button>
+          )}
+          {showReject && (
+            <button
+              onClick={() => onReject(request.requestID, request.id_user)}
+              className="flex items-center gap-2 px-4 py-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition-colors duration-200 font-medium"
             >
-              Description
-            </label>
+              <XCircle size={18} />
+              Reject
+            </button>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+
+  const AccordionSection = ({ title, icon: Icon, bgColor, textColor, requests, status }) => (
+    <div className="mb-6">
+      <button
+        onClick={() => handleToggle(status)}
+        className="flex items-center justify-between w-full p-5 bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-200 border border-gray-100"
+      >
+        <div className="flex items-center gap-3">
+          <span className={`${bgColor} ${textColor} text-lg font-medium px-4 py-2 rounded-lg flex items-center gap-2`}>
+            <Icon size={20} />
+            {title}
+          </span>
+        </div>
+        {activeToggle === status ? <ChevronUp size={20} className="text-gray-400" /> : <ChevronDown size={20} className="text-gray-400" />}
+      </button>
+      <div
+        className={`mt-3 transition-all duration-300 ease-in-out overflow-hidden ${
+          activeToggle === status ? 'max-h-[2000px] opacity-100' : 'max-h-0 opacity-0'
+        }`}
+      >
+        <div className="space-y-4 p-2">
+          {reqList
+            .filter((req) => req.status === status)
+            .map((req) => (
+              <RequestCard
+                key={req.requestID}
+                request={req}
+                onAccept={handleAcceptButton}
+                onReject={handleRejectButton}
+                showAccept={status !== "accepted"}
+                showReject={status !== "rejected"}
+              />
+            ))}
+        </div>
+      </div>
+    </div>
+  );
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      <div className="container mx-auto px-4 py-8">
+        {user.admin ? (
+          <div className="max-w-4xl mx-auto">
+            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 mb-8">
+              <h1 className="text-3xl font-bold text-gray-800">Request Management</h1>
+              <p className="text-gray-500 mt-2">Manage and respond to user requests</p>
+            </div>
+            <AccordionSection
+              title="Under Review"
+              icon={Clock}
+              bgColor="bg-yellow-50"
+              textColor="text-yellow-600"
+              requests={reqList}
+              status="pending"
+            />
+            <AccordionSection
+              title="Accepted"
+              icon={CheckCircle2}
+              bgColor="bg-green-50"
+              textColor="text-green-600"
+              requests={reqList}
+              status="accepted"
+            />
+            <AccordionSection
+              title="Rejected"
+              icon={XCircle}
+              bgColor="bg-red-50"
+              textColor="text-red-600"
+              requests={reqList}
+              status="rejected"
+            />
           </div>
-
-          <p className="text-red-400 text-center ">{error}</p>
-
-          <button
-            onClick={handleApply}
-            type="button"
-            className="w-full text-white focus:ring-4 hover:opacity-80 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 focus:outline-none "
-            style={{
-              color: textColor,
-              backgroundColor: backgroundColor,
-              border: `1px solid ${textColor}`,
-            }}
-          >
-            Apply Form
-          </button>
-        </form>
-      )}
-    </>
+        ) : (
+          <div className="max-w-xl mx-auto">
+            <form className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
+              <div className="mb-8">
+                <h2 className="text-3xl font-bold text-gray-800">Submit a Request</h2>
+                <p className="text-gray-500 mt-2">Fill out the form below to submit your request</p>
+              </div>
+              <div className="space-y-6">
+                <div>
+                  <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-2">
+                    Title
+                  </label>
+                  <div className="relative">
+                    <FileText className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+                    <input
+                      type="text"
+                      id="title"
+                      name="title"
+                      value={title}
+                      onChange={handleChange}
+                      className="w-full pl-11 pr-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
+                      placeholder="Enter request title"
+                      required
+                    />
+                  </div>
+                </div>
+                <div>
+                  <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-2">
+                    Description
+                  </label>
+                  <div className="relative">
+                    <AlignLeft className="absolute left-3 top-3 text-gray-400" size={20} />
+                    <textarea
+                      id="description"
+                      name="description"
+                      value={description}
+                      onChange={handleChange}
+                      rows={4}
+                      className="w-full pl-11 pr-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
+                      placeholder="Enter request description"
+                      required
+                    />
+                  </div>
+                </div>
+                {error && (
+                  <div className="bg-red-50 text-red-600 px-4 py-3 rounded-lg flex items-center gap-2">
+                    <XCircle size={18} />
+                    <p className="text-sm">{error}</p>
+                  </div>
+                )}
+                <button
+                  onClick={handleApply}
+                  type="submit"
+                  className="w-full py-3 px-4 text-white font-medium rounded-lg transition-all duration-200 hover:opacity-90 flex items-center justify-center gap-2"
+                  style={{
+                    backgroundColor: backgroundColor,
+                    color: textColor,
+                  }}
+                >
+                  <CheckCircle2 size={20} />
+                  Submit Request
+                </button>
+              </div>
+            </form>
+          </div>
+        )}
+      </div>
+    </div>
   );
 }

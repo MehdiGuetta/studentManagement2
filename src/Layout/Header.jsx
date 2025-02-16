@@ -1,9 +1,18 @@
 import { useDispatch, useSelector } from "react-redux";
-import logo from "../assets/logo.png"; // Path to the image
+import blackLogo from "../assets/blackLogo.png";
+import whiteLogo from "../assets/whiteLogo.png";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../Redux/actions";
 import useDynamicTextColor from "../Components/useDynamicTextColor";
 import { useEffect, useRef, useState } from "react";
+import {
+  FaSignOutAlt,
+  FaUser,
+  FaFileAlt,
+  FaCommentAlt,
+  FaChevronDown,
+  FaCrown,
+} from "react-icons/fa";
 
 const Header = () => {
   const user = useSelector((state) => state.user);
@@ -26,6 +35,15 @@ const Header = () => {
     };
   }, []);
 
+  const getImageBackground = () => {
+    if (textColor === "black") {
+      return blackLogo; 
+    } else {
+      return whiteLogo; 
+    }
+  };
+
+
   const handleToggle = () => {
     setIsToggleActive((prev) => !prev);
   };
@@ -36,79 +54,125 @@ const Header = () => {
   };
 
   return (
-    <header
-      className="w-full h-auto flex justify-around items-center py-4 px-4 sm:px-8 md:px-16 lg:px-44"
-      style={{ color: textColor, backgroundColor: backgroundColor }}
-    >
-      <div>
-        <img src={logo} className="w-24 select-none" />
-      </div>
-      <div className="flex justify-center items-center gap-12 md:gap-16 lg:gap-20">
-        <div>
-          <div>
-            <img
-              id="avatarButton"
-              type="button"
-              data-dropdown-toggle="userDropdown"
-              data-dropdown-placement="bottom-start"
-              className="w-16 h-16 md:w-20 md:h-20 rounded-full cursor-pointer"
-              src={user.photo}
-              alt="User dropdown"
-              onClick={handleToggle}
-            />
+    <header className="w-full z-50">
+      <div
+        className="absolute  pointer-events-none"
+        style={{
+          backgroundImage: `linear-gradient(to bottom, ${backgroundColor}CC, ${backgroundColor}00)`,
+        }}
+      />
 
-            {isToggleActive && (
-              <div
-                ref={dropdownRef}
-                id="userDropdown"
-                className="z-10 absolute bg-white divide-y divide-gray-100 rounded-lg shadow w-50 dark:bg-gray-700 dark:divide-gray-600"
-              >
-                <div className="px-4 py-3 text-sm text-gray-900 dark:text-white">
-                  <div>
-                    <div>
-                      {user.prenom} {user.nom}
+      <div
+        className="relative w-full px-4 sm:px-6 lg:px-8 py-4 backdrop-blur-sm transition-all duration-300"
+        style={{ backgroundColor: `${backgroundColor}`, color: textColor }}
+      >
+        <div className="max-w-7xl mx-auto flex items-center justify-between">
+          <div className="flex-shrink-0 transform hover:scale-105 transition-transform duration-300">
+            <img
+              src={getImageBackground()}
+              className="w-[150px] h-[150px]"
+              alt="Logo"
+              style={{
+                backgroundColor: backgroundColor,
+                color: textColor,
+              }}
+            />
+          </div>
+
+          <div className="relative" ref={dropdownRef}>
+            <button
+              onClick={handleToggle}
+              className="flex items-center gap-3 px-4 py-2 rounded-xl hover:bg-black/5 transition-colors duration-300"
+            >
+              <div className="flex items-center gap-3">
+                <div className="relative">
+                  <img
+                    className="w-12 h-12 rounded-full object-cover ring-2 ring-white/50"
+                    src={user.photo}
+                    alt={`${user.prenom} ${user.nom}`}
+                  />
+                  {user.admin && (
+                    <div className="absolute -top-1 -right-1 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full p-1">
+                      <FaCrown className="w-3 h-3 text-white" />
                     </div>
-                    <div className="font-medium truncate mb-1">
-                      {user.email}
-                    </div>
-                  </div>
-                  {user.admin === true ? (
-                    <span className="bg-green-100 text-green-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">
-                      Admin
-                    </span>
-                  ) : (
-                    <span className="bg-blue-100 text-blue-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">
-                      User
-                    </span>
                   )}
                 </div>
+                <div className="hidden sm:block text-left">
+                  <p className="font-medium">
+                    {user.prenom} {user.nom}
+                  </p>
+                  <p className="text-sm opacity-75">{user.email}</p>
+                </div>
+              </div>
+              <FaChevronDown
+                className={`w-4 h-4 transition-transform duration-300 ${
+                  isToggleActive ? "rotate-180" : ""
+                }`}
+              />
+            </button>
 
-                {!user.admin && (
-                  <>
-                    <div
-                      onClick={() => navigate("requests")}
-                      role="button"
-                      className="block px-4 py-2 w-full text-start text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                    >
-                      Request
+            {isToggleActive && (
+              <div className="absolute right-0 mt-2 w-72 origin-top-right">
+                <div className="bg-white rounded-2xl shadow-xl ring-1 ring-black/5 overflow-hidden">
+                  <div className="p-4 bg-gradient-to-br from-gray-50 to-white">
+                    <div className="flex items-start gap-4">
+                      <img
+                        className="w-16 h-16 rounded-xl object-cover"
+                        src={user.photo}
+                        alt={`${user.prenom} ${user.nom}`}
+                      />
+                      <div>
+                        <h3 className="font-semibold text-gray-900">
+                          {user.prenom} {user.nom}
+                        </h3>
+                        <p className="text-sm text-gray-500">{user.email}</p>
+                        <div className="mt-2">
+                          {user.admin ? (
+                            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-gradient-to-r from-yellow-400/20 to-orange-500/20 text-orange-700">
+                              <FaCrown className="w-3 h-3" />
+                              Admin
+                            </span>
+                          ) : (
+                            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-700">
+                              <FaUser className="w-3 h-3" />
+                              User
+                            </span>
+                          )}
+                        </div>
+                      </div>
                     </div>
-                    <div
-                      role="button"
-                      onClick={() => navigate("see-requests")}
-                      className="block px-4 py-2 w-full text-start text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                    >
-                      See my requests
-                    </div>
-                  </>
-                )}
+                  </div>
 
-                <div className="py-1">
-                  <button
-                    onClick={handleLogout}
-                    className="block px-4 py-2 w-full text-start text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                  >
-                    Sign out
-                  </button>
+                  <div className="border-t border-gray-100">
+                    {!user.admin && (
+                      <>
+                        <button
+                          onClick={() => navigate("requests")}
+                          className="flex w-full items-center gap-3 px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 transition-colors duration-200"
+                        >
+                          <FaFileAlt className="w-4 h-4 text-gray-400" />
+                          New Request
+                        </button>
+                        <button
+                          onClick={() => navigate("see-requests")}
+                          className="flex w-full items-center gap-3 px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 transition-colors duration-200"
+                        >
+                          <FaCommentAlt className="w-4 h-4 text-gray-400" />
+                          View My Requests
+                        </button>
+                      </>
+                    )}
+                  </div>
+
+                  <div className="border-t border-gray-100">
+                    <button
+                      onClick={handleLogout}
+                      className="flex w-full items-center gap-3 px-4 py-3 text-sm text-red-600 hover:bg-red-50 transition-colors duration-200"
+                    >
+                      <FaSignOutAlt className="w-4 h-4" />
+                      Sign out
+                    </button>
+                  </div>
                 </div>
               </div>
             )}

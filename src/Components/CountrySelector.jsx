@@ -12,7 +12,7 @@ const CountrySelector = ({ name, onChange }) => {
       <select
         name={name}
         onChange={onChange}
-        className="w-full py-3 px-4 border-none outline-blue-500 bg-[#eee] text-black rounded-md"
+        className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
       >
         <option value="">Select Country</option>
         {countries.map((country, index) => (

@@ -1,13 +1,20 @@
 import { useState } from "react";
 import axios from "axios";
 import PasswordStrengthBar from "react-password-strength-bar";
-import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faUser,
+  faEnvelope,
+  faLock,
+  faGlobe,
+  faBirthdayCake,
+  faUserShield,
+} from "@fortawesome/free-solid-svg-icons";
 import PasswordInput from "../../Components/PasswordInput";
 import CountrySelect from "../../Components/CountrySelector";
 
 function AddUser() {
   const [error, setError] = useState({});
-  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -24,11 +31,9 @@ function AddUser() {
     const { name, value, type } = e.target;
 
     if (name === "age") {
-      if ((value > 0 && value <= 100) || value === "") {
-        setFormData({
-          ...formData,
-          [name]: value,
-        });
+      const ageValue = Number.parseInt(value);
+      if ((ageValue > 0 && ageValue <= 100) || value === "") {
+        setFormData({ ...formData, [name]: value });
       }
     } else if (name === "admin-user") {
       setFormData({ ...formData, admin: value === "true" });
@@ -41,7 +46,7 @@ function AddUser() {
   };
 
   const validateForm = () => {
-    let errors = {};
+    const errors = {};
     if (!formData.firstName) errors.firstName = "First name is required";
     if (!formData.lastName) errors.lastName = "Last name is required";
     if (!formData.age) errors.age = "Age is required";
@@ -52,7 +57,7 @@ function AddUser() {
       errors.confirmPassword = "Confirm password is required";
     if (formData.password !== formData.confirmPassword)
       errors.passwordMatch = "Passwords do not match";
-    if (formData.age && formData.age < 15)
+    if (formData.age && Number.parseInt(formData.age) < 15)
       errors.age = "The age must be more than 15 years old";
     if (formData.password && !validatePassword(formData.password))
       errors.password =
@@ -93,10 +98,8 @@ function AddUser() {
 
     axios
       .post("https://676187c546efb37323720b38.mockapi.io/stagiaires", payload)
-      .then((response) => {
-        console.log("Success:", response);
-        alert("Account created successfully, Go to login page?");
-        navigate("/");
+      .then(() => {
+        alert("Account created successfully");
       })
       .catch((err) => {
         console.error("Error:", err);
@@ -108,158 +111,268 @@ function AddUser() {
   };
 
   return (
-    <div className="h-screen ">
-      <div className="w-full overflow-y-auto h-screen bg-white border-b-2 rounded-bl-xl rounded-br-xl shadow shadow-gray-200 p-10">
-        <h2 className="pb-4 text-center text-xl md:text-2xl font-bold">
-          Add User
-        </h2>
-        <form
-          onSubmit={handleSubmit}
-          className="max-w-screen-md mx-auto grid gap-6"
-        >
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <input
-                className="w-full py-3 px-4 border-none outline-blue-500 bg-[#eee] text-black rounded-md"
-                type="text"
-                name="firstName"
-                placeholder="First Name"
-                value={formData.firstName}
-                onChange={handleChange}
-              />
+    <div className="min-h-screen flex items-center justify-center p-4">
+      <div className="w-full max-w-4xl bg-white rounded-2xl shadow-xl overflow-hidden">
+        <div className="bg-gradient-to-r from-blue-500 to-indigo-600 p-8 text-white">
+          <h2 className="text-3xl font-bold text-center">Add New User</h2>
+          <p className="text-center mt-2 text-blue-100">
+            Create a new account for admin or regular user
+          </p>
+        </div>
+        <form onSubmit={handleSubmit} className="p-8 space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-2">
+              <label
+                htmlFor="firstName"
+                className="text-sm font-medium text-gray-700"
+              >
+                First Name
+              </label>
+              <div className="relative">
+                <FontAwesomeIcon
+                  icon={faUser}
+                  className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+                />
+                <input
+                  id="firstName"
+                  className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  type="text"
+                  name="firstName"
+                  placeholder="First Name"
+                  value={formData.firstName}
+                  onChange={handleChange}
+                />
+              </div>
               {error.firstName && (
-                <p className="text-red-400 pt-2">{error.firstName}</p>
+                <p className="text-red-500 text-xs mt-1">{error.firstName}</p>
               )}
             </div>
 
-            <div>
-              <input
-                className="w-full py-3 px-4 border-none outline-blue-500 bg-[#eee] text-black rounded-md"
-                type="text"
-                name="lastName"
-                placeholder="Last Name"
-                value={formData.lastName}
-                onChange={handleChange}
-              />
+            <div className="space-y-2">
+              <label
+                htmlFor="lastName"
+                className="text-sm font-medium text-gray-700"
+              >
+                Last Name
+              </label>
+              <div className="relative">
+                <FontAwesomeIcon
+                  icon={faUser}
+                  className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+                />
+                <input
+                  id="lastName"
+                  className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  type="text"
+                  name="lastName"
+                  placeholder="Last Name"
+                  value={formData.lastName}
+                  onChange={handleChange}
+                />
+              </div>
               {error.lastName && (
-                <p className="text-red-400 pt-2">{error.lastName}</p>
+                <p className="text-red-500 text-xs mt-1">{error.lastName}</p>
               )}
             </div>
 
-            <div>
-              <input
-                className="w-full py-3 px-4 border-none outline-blue-500 bg-[#eee] text-black rounded-md"
-                type="number"
-                name="age"
-                placeholder="Age"
-                value={formData.age}
-                onChange={handleChange}
-              />
-              {error.age && <p className="text-red-400 pt-2">{error.age}</p>}
+            <div className="space-y-2">
+              <label
+                htmlFor="age"
+                className="text-sm font-medium text-gray-700"
+              >
+                Age
+              </label>
+              <div className="relative">
+                <FontAwesomeIcon
+                  icon={faBirthdayCake}
+                  className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+                />
+                <input
+                  id="age"
+                  className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  type="number"
+                  name="age"
+                  placeholder="Age"
+                  value={formData.age}
+                  onChange={handleChange}
+                />
+              </div>
+              {error.age && (
+                <p className="text-red-500 text-xs mt-1">{error.age}</p>
+              )}
             </div>
 
-            <div>
-              <input
-                className="w-full py-3 px-4 border-none outline-blue-500 bg-[#eee] text-black rounded-md"
-                type="text"
-                name="username"
-                placeholder="Username"
-                value={formData.username}
-                onChange={handleChange}
-              />
+            <div className="space-y-2">
+              <label
+                htmlFor="username"
+                className="text-sm font-medium text-gray-700"
+              >
+                Username
+              </label>
+              <div className="relative">
+                <FontAwesomeIcon
+                  icon={faUser}
+                  className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+                />
+                <input
+                  id="username"
+                  className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  type="text"
+                  name="username"
+                  placeholder="Username"
+                  value={formData.username}
+                  onChange={handleChange}
+                />
+              </div>
               {error.username && (
-                <p className="text-red-400 pt-2">{error.username}</p>
+                <p className="text-red-500 text-xs mt-1">{error.username}</p>
               )}
             </div>
 
-            <div>
-              <input
-                className="w-full py-3 px-4 border-none outline-blue-500 bg-[#eee] text-black rounded-md"
-                type="email"
-                name="email"
-                placeholder="Email"
-                value={formData.email}
-                onChange={handleChange}
-              />
+            <div className="space-y-2">
+              <label
+                htmlFor="email"
+                className="text-sm font-medium text-gray-700"
+              >
+                Email
+              </label>
+              <div className="relative">
+                <FontAwesomeIcon
+                  icon={faEnvelope}
+                  className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+                />
+                <input
+                  id="email"
+                  className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  type="email"
+                  name="email"
+                  placeholder="Email"
+                  value={formData.email}
+                  onChange={handleChange}
+                />
+              </div>
               {error.email && (
-                <p className="text-red-400 pt-2">{error.email}</p>
+                <p className="text-red-500 text-xs mt-1">{error.email}</p>
               )}
             </div>
 
-            <div>
-              <CountrySelect onChange={handleChange} name="country" />
+            <div className="space-y-2">
+              <label
+                htmlFor="country"
+                className="text-sm font-medium text-gray-700"
+              >
+                Country
+              </label>
+              <div className="relative">
+                <FontAwesomeIcon
+                  icon={faGlobe}
+                  className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+                />
+                <CountrySelect onChange={handleChange} name="country" />
+              </div>
               {error.country && (
-                <p className="text-red-400 pt-2">{error.country}</p>
+                <p className="text-red-500 text-xs mt-1">{error.country}</p>
               )}
             </div>
-            <div>
-              <PasswordInput
-                name="password"
-                placeholder="Password"
-                value={formData.password}
-                onChange={handleChange}
-              />
+
+            <div className="space-y-2">
+              <label
+                htmlFor="password"
+                className="text-sm font-medium text-gray-700"
+              >
+                Password
+              </label>
+              <div className="relative">
+                <FontAwesomeIcon
+                  icon={faLock}
+                  className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+                />
+                <PasswordInput
+                  id="password"
+                  name="password"
+                  placeholder="Password"
+                  value={formData.password}
+                  onChange={handleChange}
+                />
+              </div>
               {error.password && (
-                <p className="text-red-400 pt-2">{error.password}</p>
+                <p className="text-red-500 text-xs mt-1">{error.password}</p>
               )}
               {formData.password.length > 0 && (
-                <PasswordStrengthBar
-                  className="w-full py-2 border-none outline-blue-500 text-black "
-                  password={formData.password}
-                />
+                <PasswordStrengthBar password={formData.password} />
               )}
             </div>
 
-            <div>
-              <PasswordInput
-                name="confirmPassword"
-                placeholder="Confirm Password"
-                value={formData.confirmPassword}
-                onChange={handleChange}
-              />
+            <div className="space-y-2">
+              <label
+                htmlFor="confirmPassword"
+                className="text-sm font-medium text-gray-700"
+              >
+                Confirm Password
+              </label>
+              <div className="relative">
+                <FontAwesomeIcon
+                  icon={faLock}
+                  className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+                />
+                <PasswordInput
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  placeholder="Confirm Password"
+                  value={formData.confirmPassword}
+                  onChange={handleChange}
+                />
+              </div>
               {error.confirmPassword && (
-              <p className="text-red-400 pt-2">{error.confirmPassword}</p>
-            )}
+                <p className="text-red-500 text-xs mt-1">
+                  {error.confirmPassword}
+                </p>
+              )}
             </div>
-            
-            {error.passwordMatch && (
-              <p className="text-red-400 pt-2">{error.passwordMatch}</p>
-            )}
-
-            <div className="flex gap-10 items-center">
-              <label>
-                <input
-                  type="radio"
-                  name="admin-user"
-                  value="true"
-                  checked={formData.admin === true}
-                  onChange={handleChange}
-                />
-                Admin
-              </label>
-              <label>
-                <input
-                  type="radio"
-                  name="admin-user"
-                  value="false"
-                  checked={formData.admin === false}
-                  onChange={handleChange}
-                />
-                User
-              </label>
-            </div>
-
-            <button
-              type="submit"
-              className=" bg-blue-600 text-white hover:opacity-85 transition duration-200 py-3 px-4 border-none outline-blue-500 rounded-md"
-            >
-              Sign UP
-            </button>
-
-            {error.submit && (
-              <p className="text-red-400 pt-2 text-center">{error.submit}</p>
-            )}
           </div>
+
+          {error.passwordMatch && (
+            <p className="text-red-500 text-sm text-center">
+              {error.passwordMatch}
+            </p>
+          )}
+
+          <div className="flex justify-center items-center space-x-6">
+            <label className="inline-flex items-center">
+              <input
+                type="radio"
+                name="admin-user"
+                value="true"
+                checked={formData.admin === true}
+                onChange={handleChange}
+                className="form-radio text-blue-600"
+              />
+              <span className="ml-2">Admin</span>
+            </label>
+            <label className="inline-flex items-center">
+              <input
+                type="radio"
+                name="admin-user"
+                value="false"
+                checked={formData.admin === false}
+                onChange={handleChange}
+                className="form-radio text-blue-600"
+              />
+              <span className="ml-2">User</span>
+            </label>
+          </div>
+
+          <button
+            type="submit"
+            className="w-full py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-200 flex items-center justify-center"
+          >
+            <FontAwesomeIcon icon={faUserShield} className="mr-2" />
+            Add user
+          </button>
+
+          {error.submit && (
+            <p className="text-red-500 text-sm text-center">{error.submit}</p>
+          )}
         </form>
       </div>
     </div>

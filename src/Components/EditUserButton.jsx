@@ -61,10 +61,10 @@ const EditUserButton = ({ userId, onUserEdit }) => {
       </a>
 
       {isModalOpen && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 transition-opacity">
-          <div className="bg-white rounded-lg shadow-lg p-6 max-w-sm w-full">
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 transition-opacity z-50">
+          <div className="bg-white rounded-lg shadow-lg p-6 max-w-sm w-full ">
             <h2 className="text-lg font-semibold text-gray-800">Edit User</h2>
-            <form className="space-y-4 mt-4">
+            <form className="space-y-4 mt-4 flex flex-col">
               <label htmlFor="">
                 <input
                   className="w-full py-2 px-3 border-none outline-blue-500 bg-[#eee] text-black rounded-md"
