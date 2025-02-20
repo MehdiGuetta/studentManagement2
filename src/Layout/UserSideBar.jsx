@@ -35,7 +35,7 @@ const UserSideBar = () => {
 
   return (
     <aside
-      className="hidden h-[calc(100vh-80px)] transition-all duration-300 ease-in-out"
+      className="hidden md:block  h-[calc(100vh-80px)] transition-all duration-300 ease-in-out"
       style={{
         backgroundColor: `${backgroundColor}DD`,
         backdropFilter: "blur(8px)",
